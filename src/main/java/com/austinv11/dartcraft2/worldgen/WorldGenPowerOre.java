@@ -17,7 +17,7 @@ import java.util.Random;
  */
 public class WorldGenPowerOre implements IWorldGenerator {
 	
-	private static final int MAX_GEN_PASSES = 8;
+	private static final int MAX_GEN_PASSES = 8; //Maximum number of tries for finding a suitable location for each vein
 	
 	@Override
 	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {

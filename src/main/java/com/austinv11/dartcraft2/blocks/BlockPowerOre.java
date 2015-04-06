@@ -14,6 +14,7 @@ public class BlockPowerOre extends BlockDC {
 		super();
 		this.setBlockName("powerOre");
 		this.setHardness(3F);
+		this.lightValue = 5;
 	}
 	
 	@Override
