@@ -1,0 +1,8 @@
+#Blocks
+tile.dartcraft2:powerOre.name=Power Ore
+
+#Items
+item.dartcraft2:forceShard.name=Force Shard
+
+#Creative Tabs
+itemGroup.dartcraft2=DartCraft 2

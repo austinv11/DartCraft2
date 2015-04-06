@@ -1,0 +1,21 @@
+{
+  "modListVersion": 2,
+  "modList": [{
+    "modid": "DartCraft2",
+    "name": "DartCraft 2",
+    "description": "A rewrite of DartCraft",
+    "version": "@VERSION@",
+    "mcversion": "1.7.10",
+    "url": "austinv11.com",
+    "updateUrl": "",
+    "authorList": ["austinv11"],
+    "credits": "Made by austinv11. Original Darcraft by BlueDart",
+    "logoFile": "",
+    "screenshots": [],
+    "parent": "",
+    "requiredMods": ["Forge", "CollectiveFramework"],
+    "dependencies": [],
+    "dependants": [],
+    "useDependencyInformation": false
+  }]
+}
