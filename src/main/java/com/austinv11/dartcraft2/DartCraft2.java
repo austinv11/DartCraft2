@@ -33,7 +33,7 @@ public class DartCraft2 {
 		NETWORK = NetworkRegistry.INSTANCE.newSimpleChannel("dartcraft2");
 		ModItems.init();
 		ModBlocks.init();
-		GameRegistry.registerWorldGenerator(new WorldGenPowerOre(), 0);
+		GameRegistry.registerWorldGenerator(new WorldGenPowerOre(), 1);
 	}
 	
 	@Mod.EventHandler
