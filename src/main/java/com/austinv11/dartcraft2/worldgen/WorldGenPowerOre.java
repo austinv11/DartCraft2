@@ -12,8 +12,8 @@ import java.util.Random;
 /**
  * Spawns power ore in the overworld and nether.
  * It spawns in the overworld between y levels 1 and 64, nether 1 and 256.
- * It spawns in veins of 1 to 6 ores which spawn anywhere withing a 3x3x3 area of the center block.
- * There are 8-20 veins in every chunk.
+ * It spawns in veins of 1 to 5 ores which spawn anywhere withing a 3x3x3 area of the center block.
+ * There are 3-10 veins in every chunk.
  */
 public class WorldGenPowerOre implements IWorldGenerator {
 	
@@ -27,7 +27,7 @@ public class WorldGenPowerOre implements IWorldGenerator {
 	}
 	
 	private void genVein(Random rng, World world, int chunkX, int chunkZ) {
-		int numOfVeins = MathHelper.getRandomIntegerInRange(rng, 8, 20);
+		int numOfVeins = MathHelper.getRandomIntegerInRange(rng, 3, 10);
 		outerLoop: for (int i = 0; i < numOfVeins; i++) {
 			int x = (chunkX*16) + MathHelper.getRandomIntegerInRange(rng, 0, 15);
 			int z = (chunkZ*16) + MathHelper.getRandomIntegerInRange(rng, 0, 15);
@@ -39,7 +39,7 @@ public class WorldGenPowerOre implements IWorldGenerator {
 					continue outerLoop;
 				}
 			} while (world.isAirBlock(x, y, z));
-			int numOfOres = MathHelper.getRandomIntegerInRange(rng, 1, 6);
+			int numOfOres = MathHelper.getRandomIntegerInRange(rng, 1, 5);
 			WorldGenHelper.spawnOreBlock(world, x, y, z, world.provider.dimensionId == 0 ? ModBlocks.powerOre : ModBlocks.netherPowerOre);
 			for (int j = 0; j < numOfOres-1; j++) {
 				int newX = MathHelper.getRandomIntegerInRange(rng, x-1, x+1);
