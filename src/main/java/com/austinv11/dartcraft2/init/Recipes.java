@@ -36,7 +36,7 @@ public class Recipes {
 		twoIngots.stackSize = 2;
 		ItemStack threeIngots = twoIngots.copy();
 		threeIngots.stackSize = 3;
-		RecipeManagers.squeezerManager.addRecipe(40, new ItemStack[]{new ItemStack(ModItems.forceShard)}, new FluidStack(ModFluids.liquidForce, 1500)); //TODO: Force shard as remnants
+		RecipeManagers.squeezerManager.addRecipe(40, new ItemStack[]{new ItemStack(ModItems.forceGem)}, new FluidStack(ModFluids.liquidForce, 1500)); //TODO: Force shard as remnants
 		for (ItemStack stack : OreDictionary.getOres("ingotIron"))
 			RecipeManagers.carpenterManager.addRecipe(40, new FluidStack(ModFluids.liquidForce, 1000), null, twoIngots, "   ", "   ", " ff", 'f', stack);
 		for (ItemStack stack : OreDictionary.getOres("ingotGold"))

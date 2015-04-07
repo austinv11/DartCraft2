@@ -12,13 +12,13 @@ import net.minecraftforge.fluids.FluidContainerRegistry;
 @GameRegistry.ObjectHolder(Reference.MOD_ID)
 public class ModItems {
 	
-	public static final ItemDC forceShard = new ItemForceShard();
+	public static final ItemDC forceGem = new ItemForceGem();
 	public static final Item liquidForceBucket = new ItemLiquidForceBucket(ModFluids.liquidForce);
 	public static final ItemDC clipboard = new ItemClipboard();
 	public static final ItemDC forceIngot = new ItemForceIngot();
 	
 	public static void init() {
-		GameRegistry.registerItem(forceShard, "forceShard");
+		GameRegistry.registerItem(forceGem, "forceGem");
 		GameRegistry.registerItem(liquidForceBucket, "liquidForceBucket");
 		FluidContainerRegistry.registerFluidContainer(ModFluids.liquidForce, new ItemStack(liquidForceBucket), new ItemStack(Items.bucket));
 		BucketHandler.buckets.put(ModBlocks.liquidForce, liquidForceBucket);

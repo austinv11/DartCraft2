@@ -11,7 +11,7 @@ public class CreativeTabDC {
 		
 		@Override
 		public Item getTabIconItem() {
-			return ModItems.forceShard;
+			return ModItems.forceGem;
 		}
 	};
 }

@@ -19,7 +19,7 @@ public class BlockPowerOre extends BlockDC {
 	
 	@Override
 	public Item getItemDropped(int meta, Random random, int fortuneLevel) { //Not sure about the params
-		return ModItems.forceShard;
+		return ModItems.forceGem;
 	}
 	
 	@Override

@@ -4,13 +4,18 @@ tile.dartcraft2:netherPowerOre.name=Nether Power Ore
 tile.dartcraft2:liquidForce.name=Liquid Force
 
 #Items
-item.dartcraft2:forceShard.name=Force Shard
+item.dartcraft2:forceGem.name=Force Gem
 item.dartcraft2:liquidForceBucket.name=Liquid Force Bucket
 item.dartcraft2:clipboard.name=Clipboard
 item.dartcraft2:forceIngot.name=Force Ingot
 
 #Fluid
 fluid.tile.dartcraft2:liquidForce=Liquid Force
+
+#Guis
+gui.clipboard.itemDistribution=Distribute Items
+gui.clipboard.smartAssist=Smart Assist
+gui.clipboard.removeItems=Remove Items
 
 #Creative Tabs
 itemGroup.dartcraft2=DartCraft 2

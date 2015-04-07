@@ -79,11 +79,15 @@ public class BlockLiquidForce extends BlockFluidClassic {
 		super.onEntityCollidedWithBlock(world, x, y, z, entity);
 		
 		if (entity instanceof EntityLivingBase) {
-			((EntityLivingBase)entity).addPotionEffect(new PotionEffect(Potion.regeneration.id, 21, 0, true));
+			
+			if (((EntityLivingBase) entity).getActivePotionEffect(Potion.regeneration) == null)
+				((EntityLivingBase) entity).addPotionEffect(new PotionEffect(Potion.regeneration.id, 80, 0, true));
 			entity.setAir(300);
 			
 			if (entity instanceof EntityMob) {
-				((EntityMob) entity).addPotionEffect(new PotionEffect(Potion.weakness.id, 21, 0, true));
+				if (((EntityMob) entity).getActivePotionEffect(Potion.weakness) == null)
+					((EntityMob) entity).addPotionEffect(new PotionEffect(Potion.weakness.id, 80, 0, true));
+				
 				for (int i = entity instanceof EntitySkeleton ? 1 : 0; i < 5; i++) {
 					ItemStack equipment = ((EntityMob) entity).getEquipmentInSlot(i);
 					if (equipment != null) {

@@ -42,6 +42,7 @@ public class DartCraft2 {
 			e.printStackTrace();
 		}
 		NETWORK = NetworkRegistry.INSTANCE.newSimpleChannel("dartcraft2");
+		proxy.registerPackets();
 		GameRegistry.registerWorldGenerator(new WorldGenPowerOre(), 1);
 		ModFluids.init();
 		ModBlocks.init();
