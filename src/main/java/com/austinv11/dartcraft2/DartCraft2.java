@@ -4,6 +4,7 @@ import com.austinv11.collectiveframework.minecraft.config.ConfigException;
 import com.austinv11.collectiveframework.minecraft.config.ConfigRegistry;
 import com.austinv11.collectiveframework.minecraft.logging.Logger;
 import com.austinv11.dartcraft2.init.ModBlocks;
+import com.austinv11.dartcraft2.init.ModFluids;
 import com.austinv11.dartcraft2.init.ModItems;
 import com.austinv11.dartcraft2.proxy.CommonProxy;
 import com.austinv11.dartcraft2.reference.Config;
@@ -39,14 +40,18 @@ public class DartCraft2 {
 			e.printStackTrace();
 		}
 		NETWORK = NetworkRegistry.INSTANCE.newSimpleChannel("dartcraft2");
-		ModItems.init();
-		ModBlocks.init();
 		GameRegistry.registerWorldGenerator(new WorldGenPowerOre(), 1);
+		ModFluids.init();
+		ModBlocks.init();
+		ModItems.init();
 	}
 	
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent event) {
+		proxy.registerEvents();
 		proxy.registerClient();
+		proxy.registerOreDictEntries();
+		proxy.registerTileEntities();
 	}
 	
 	@Mod.EventHandler

@@ -5,12 +5,14 @@ import com.austinv11.dartcraft2.blocks.BlockNetherPowerOre;
 import com.austinv11.dartcraft2.blocks.BlockPowerOre;
 import com.austinv11.dartcraft2.reference.Reference;
 import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraft.block.Block;
 
-@GameRegistry.ObjectHolder(value = Reference.MOD_ID)
+@GameRegistry.ObjectHolder(Reference.MOD_ID)
 public class ModBlocks {
 	
 	public static final BlockDC powerOre = new BlockPowerOre();
 	public static final BlockDC netherPowerOre = new BlockNetherPowerOre();
+	public static Block liquidForce;
 	
 	public static void init() {
 		GameRegistry.registerBlock(powerOre, "powerOre");
