@@ -39,7 +39,9 @@ public class GuiClipboard extends GuiContainer {
 		int l = (this.height - this.ySize) / 2;
 		this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
 		int scaleFactor = new ScaledResolution(Minecraft.getMinecraft(), k, l).getScaleFactor();
-		if (mouseX > k+(96*scaleFactor) && mouseX < k+(105*scaleFactor) && mouseY > l+(15*scaleFactor) && mouseY < l+(28*scaleFactor)) {
+		
+		if (mouseX > k+(96*scaleFactor) && mouseX < k+(105*scaleFactor) 
+				&& mouseY > l+(15*scaleFactor) && mouseY < l+(28*scaleFactor)) {
 			List<String> text = new ArrayList<String>();
 			text.add(StatCollector.translateToLocal("gui.clipboard.itemDistribution"));
 			drawHoveringText(text, mouseX, mouseY, mc.fontRenderer);
@@ -52,7 +54,8 @@ public class GuiClipboard extends GuiContainer {
 			GL11.glColorMask(true, true, true, true);
 			GL11.glEnable(GL11.GL_LIGHTING);
 			GL11.glEnable(GL11.GL_DEPTH_TEST);
-		} else if (mouseX > k+(89*scaleFactor) && mouseX < k+(98*scaleFactor) && mouseY > l+(54*scaleFactor) && mouseY < l+(67*scaleFactor)) {
+		} else if (mouseX > k+(89*scaleFactor) && mouseX < k+(98*scaleFactor) 
+				&& mouseY > l+(54*scaleFactor) && mouseY < l+(67*scaleFactor)) {
 			List<String> text = new ArrayList<String>();
 			text.add(StatCollector.translateToLocal("gui.clipboard.smartAssist"));
 			drawHoveringText(text, mouseX, mouseY, mc.fontRenderer);
@@ -65,7 +68,8 @@ public class GuiClipboard extends GuiContainer {
 			GL11.glColorMask(true, true, true, true);
 			GL11.glEnable(GL11.GL_LIGHTING);
 			GL11.glEnable(GL11.GL_DEPTH_TEST);
-		} else if (mouseX > k+(103*scaleFactor) && mouseX < k+(112*scaleFactor) && mouseY > l+(56*scaleFactor) && mouseY < l+(67*scaleFactor)) {
+		} else if (mouseX > k+(103*scaleFactor) && mouseX < k+(112*scaleFactor) 
+				&& mouseY > l+(56*scaleFactor) && mouseY < l+(67*scaleFactor)) {
 			List<String> text = new ArrayList<String>();
 			text.add(StatCollector.translateToLocal("gui.clipboard.removeItems"));
 			drawHoveringText(text, mouseX, mouseY, mc.fontRenderer);
@@ -86,11 +90,14 @@ public class GuiClipboard extends GuiContainer {
 		int k = (this.width - this.xSize) / 2;
 		int l = (this.height - this.ySize) / 2;
 		int scaleFactor = new ScaledResolution(Minecraft.getMinecraft(), k, l).getScaleFactor();
-		if (mouseX > k+(96*scaleFactor) && mouseX < k+(105*scaleFactor) && mouseY > l+(15*scaleFactor) && mouseY < l+(28*scaleFactor)) {
+		if (mouseX > k+(96*scaleFactor) && mouseX < k+(105*scaleFactor) 
+				&& mouseY > l+(15*scaleFactor) && mouseY < l+(28*scaleFactor)) {
 			doItemDistribution();
-		} else if (mouseX > k+(89*scaleFactor) && mouseX < k+(98*scaleFactor) && mouseY > l+(54*scaleFactor) && mouseY < l+(67*scaleFactor)) {
+		} else if (mouseX > k+(89*scaleFactor) && mouseX < k+(98*scaleFactor) 
+				&& mouseY > l+(54*scaleFactor) && mouseY < l+(67*scaleFactor)) {
 			doSmartAssist();
-		} else if (mouseX > k+(103*scaleFactor) && mouseX < k+(112*scaleFactor) && mouseY > l+(56*scaleFactor) && mouseY < l+(67*scaleFactor)) {
+		} else if (mouseX > k+(103*scaleFactor) && mouseX < k+(112*scaleFactor) 
+				&& mouseY > l+(56*scaleFactor) && mouseY < l+(67*scaleFactor)) {
 			doRemoveItems();
 		} else {
 			super.mouseClicked(mouseX, mouseY, button);

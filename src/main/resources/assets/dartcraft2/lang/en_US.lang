@@ -8,6 +8,7 @@ item.dartcraft2:forceGem.name=Force Gem
 item.dartcraft2:liquidForceBucket.name=Liquid Force Bucket
 item.dartcraft2:clipboard.name=Clipboard
 item.dartcraft2:forceIngot.name=Force Ingot
+item.dartcraft2:forceNugget.name=Force Nugget
 
 #Fluid
 fluid.tile.dartcraft2:liquidForce=Liquid Force

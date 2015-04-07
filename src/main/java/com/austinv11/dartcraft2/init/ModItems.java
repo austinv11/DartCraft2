@@ -16,6 +16,7 @@ public class ModItems {
 	public static final Item liquidForceBucket = new ItemLiquidForceBucket(ModFluids.liquidForce);
 	public static final ItemDC clipboard = new ItemClipboard();
 	public static final ItemDC forceIngot = new ItemForceIngot();
+	public static final ItemDC forceNugget = new ItemForceNugget();
 	
 	public static void init() {
 		GameRegistry.registerItem(forceGem, "forceGem");
@@ -24,5 +25,6 @@ public class ModItems {
 		BucketHandler.buckets.put(ModBlocks.liquidForce, liquidForceBucket);
 		GameRegistry.registerItem(clipboard, "clipboard");
 		GameRegistry.registerItem(forceIngot, "forceIngot");
+		GameRegistry.registerItem(forceNugget, "forceNugget");
 	}
 }
