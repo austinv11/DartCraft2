@@ -14,6 +14,6 @@ public class ModFluids {
 		FluidRegistry.registerFluid(liquidForce);
 		ModBlocks.liquidForce = new BlockLiquidForce(liquidForce, Material.water).setBlockName("liquidForce");
 		GameRegistry.registerBlock(ModBlocks.liquidForce, "liquidForce");
-		liquidForce.setUnlocalizedName(ModBlocks.liquidForce.getUnlocalizedName());
+		liquidForce = liquidForce.setBlock(ModBlocks.liquidForce).setUnlocalizedName(ModBlocks.liquidForce.getUnlocalizedName());
 	}
 }

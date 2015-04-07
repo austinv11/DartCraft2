@@ -35,7 +35,7 @@ public class BlockLiquidForce extends BlockFluidClassic implements ITileEntityPr
 	
 	@Override
 	public IIcon getIcon(int side, int meta) {
-		return (side == 0 || side == 1)? stillIcon : flowingIcon;
+		return (side == 0 || side == 1) ? stillIcon : flowingIcon;
 	}
 	
 	@SideOnly(Side.CLIENT)
@@ -43,6 +43,8 @@ public class BlockLiquidForce extends BlockFluidClassic implements ITileEntityPr
 	public void registerBlockIcons(IIconRegister register) {
 		stillIcon = register.registerIcon(Reference.MOD_ID+":fluids/liquidForceStill");
 		flowingIcon = register.registerIcon(Reference.MOD_ID+":fluids/liquidForceFlowing");
+		this.blockIcon = stillIcon;
+		ModFluids.liquidForce.setIcons(stillIcon, flowingIcon);
 	}
 	
 	@Override
