@@ -2,22 +2,26 @@ package com.austinv11.dartcraft2.blocks;
 
 import com.austinv11.dartcraft2.init.ModFluids;
 import com.austinv11.dartcraft2.reference.Reference;
-import com.austinv11.dartcraft2.tileentities.TileEntityLiquidForce;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.monster.EntityMob;
+import net.minecraft.entity.monster.EntitySkeleton;
+import net.minecraft.entity.monster.EntityZombie;
+import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fluids.Fluid;
 
-import java.util.Random;
-
-public class BlockLiquidForce extends BlockFluidClassic implements ITileEntityProvider {
+public class BlockLiquidForce extends BlockFluidClassic {
 	
 	@SideOnly(Side.CLIENT)
 	protected IIcon stillIcon;
@@ -62,42 +66,37 @@ public class BlockLiquidForce extends BlockFluidClassic implements ITileEntityPr
 	}
 	
 	@Override
-	public String getUnlocalizedName(){//Formats the name
+	public String getUnlocalizedName(){
 		return String.format("tile.%s%s", Reference.MOD_ID.toLowerCase()+":", getUnwrappedUnlocalizedName(getUnwrappedUnlocalizedName(super.getUnlocalizedName())));
 	}
 	
-	protected String getUnwrappedUnlocalizedName(String unlocalizedName){//Removes the "item." from the item name
+	protected String getUnwrappedUnlocalizedName(String unlocalizedName){
 		return unlocalizedName.substring(unlocalizedName.indexOf(".")+1);
 	}
 	
 	@Override
-	public void updateTick(World world, int x, int y, int z, Random rand) {
-		super.updateTick(world, x, y, z, rand);
-//		List<Entity> entities = world.getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(x-1, y-1, z-1, x, y, z));
-//		for (Entity entity : entities) {
-//			if (entity instanceof EntityLivingBase && entity.isInWater()) {
-//				((EntityLivingBase)entity).addPotionEffect(new PotionEffect(Potion.regeneration.id, 1, 1, true));
-//				entity.setAir(10);
-//				if (entity instanceof EntityMob) {
-//					((EntityMob) entity).addPotionEffect(new PotionEffect(Potion.weakness.id, 1, 1, true));
-//					for (int i = 0; i < 5; i++) {
-//						ItemStack equipment = ((EntityMob) entity).getEquipmentInSlot(i);
-//						if (equipment != null) {
-//							world.spawnEntityInWorld(new EntityItem(world, x, y+1, z, equipment));
-//							entity.setCurrentItemOrArmor(i, null);
-//						}
-//					}
-//					if (!((EntityMob) entity).isChild())
-//						if (entity instanceof EntityZombie) {
-//							((EntityZombie) entity).setChild(true);
-//						}
-//				}
-//			}
-//		}
-	}
-	
-	@Override
-	public TileEntity createNewTileEntity(World world, int meta) {
-		return new TileEntityLiquidForce();
+	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {
+		super.onEntityCollidedWithBlock(world, x, y, z, entity);
+		
+		if (entity instanceof EntityLivingBase) {
+			((EntityLivingBase)entity).addPotionEffect(new PotionEffect(Potion.regeneration.id, 21, 0, true));
+			entity.setAir(300);
+			
+			if (entity instanceof EntityMob) {
+				((EntityMob) entity).addPotionEffect(new PotionEffect(Potion.weakness.id, 21, 0, true));
+				for (int i = entity instanceof EntitySkeleton ? 1 : 0; i < 5; i++) {
+					ItemStack equipment = ((EntityMob) entity).getEquipmentInSlot(i);
+					if (equipment != null) {
+						world.spawnEntityInWorld(new EntityItem(world, x, y+1, z, equipment));
+						entity.setCurrentItemOrArmor(i, null);
+					}
+				}
+				
+				if (!((EntityMob) entity).isChild())
+					if (entity instanceof EntityZombie) {
+						((EntityZombie) entity).setChild(true);
+					}
+			}
+		}
 	}
 }
