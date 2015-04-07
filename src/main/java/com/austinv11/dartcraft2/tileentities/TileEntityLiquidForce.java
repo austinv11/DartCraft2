@@ -1,5 +1,6 @@
 package com.austinv11.dartcraft2.tileentities;
 
+import com.austinv11.dartcraft2.reference.Config;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
@@ -25,25 +26,27 @@ public class TileEntityLiquidForce extends TileEntity {
 	
 	@Override
 	public void updateEntity() {
-		List<Entity> entities = worldObj.getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(xCoord, yCoord, zCoord, xCoord+2, yCoord+2, zCoord+2));
-		for (Entity entity : entities) {
-			if (entity instanceof EntityLivingBase && entity.isInWater()) {
-				if (!worldObj.isRemote) {
-					((EntityLivingBase) entity).addPotionEffect(new PotionEffect(Potion.regeneration.getId(), 20, 0, true));
-					entity.setAir(300);
-					if (entity instanceof EntityMob) {
-						((EntityMob) entity).addPotionEffect(new PotionEffect(Potion.weakness.id, 20, 0, true));
-						for (int i = entity instanceof EntitySkeleton ? 1 : 0; i < 5; i++) {
-							ItemStack equipment = ((EntityMob) entity).getEquipmentInSlot(i);
-							if (equipment != null) {
-								worldObj.spawnEntityInWorld(new EntityItem(worldObj, xCoord, yCoord+1, zCoord, equipment));
-								entity.setCurrentItemOrArmor(i, null);
+		if (Config.enableExtraLiquidForceEffects) {
+			List<Entity> entities = worldObj.getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getBoundingBox(xCoord, yCoord, zCoord, xCoord+2, yCoord+2, zCoord+2));
+			for (Entity entity : entities) {
+				if (entity instanceof EntityLivingBase && entity.isInWater()) {
+					if (!worldObj.isRemote) {
+						((EntityLivingBase) entity).addPotionEffect(new PotionEffect(Potion.regeneration.getId(), 20, 0, true));
+						entity.setAir(300);
+						if (entity instanceof EntityMob) {
+							((EntityMob) entity).addPotionEffect(new PotionEffect(Potion.weakness.id, 20, 0, true));
+							for (int i = entity instanceof EntitySkeleton ? 1 : 0; i < 5; i++) {
+								ItemStack equipment = ((EntityMob) entity).getEquipmentInSlot(i);
+								if (equipment != null) {
+									worldObj.spawnEntityInWorld(new EntityItem(worldObj, xCoord, yCoord+1, zCoord, equipment));
+									entity.setCurrentItemOrArmor(i, null);
+								}
 							}
+							if (!((EntityMob) entity).isChild())
+								if (entity instanceof EntityZombie) {
+									((EntityZombie) entity).setChild(true);
+								}
 						}
-						if (!((EntityMob) entity).isChild())
-							if (entity instanceof EntityZombie) {
-								((EntityZombie) entity).setChild(true);
-							}
 					}
 				}
 			}

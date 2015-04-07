@@ -3,9 +3,11 @@ package com.austinv11.dartcraft2;
 import com.austinv11.collectiveframework.minecraft.config.ConfigException;
 import com.austinv11.collectiveframework.minecraft.config.ConfigRegistry;
 import com.austinv11.collectiveframework.minecraft.logging.Logger;
+import com.austinv11.dartcraft2.client.gui.GuiHandler;
 import com.austinv11.dartcraft2.init.ModBlocks;
 import com.austinv11.dartcraft2.init.ModFluids;
 import com.austinv11.dartcraft2.init.ModItems;
+import com.austinv11.dartcraft2.init.Recipes;
 import com.austinv11.dartcraft2.proxy.CommonProxy;
 import com.austinv11.dartcraft2.reference.Config;
 import com.austinv11.dartcraft2.reference.Reference;
@@ -48,10 +50,12 @@ public class DartCraft2 {
 	
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent event) {
+		NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
 		proxy.registerEvents();
 		proxy.registerClient();
 		proxy.registerOreDictEntries();
 		proxy.registerTileEntities();
+		Recipes.init();
 	}
 	
 	@Mod.EventHandler
