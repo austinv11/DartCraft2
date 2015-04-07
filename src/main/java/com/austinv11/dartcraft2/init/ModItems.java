@@ -1,10 +1,7 @@
 package com.austinv11.dartcraft2.init;
 
 import com.austinv11.dartcraft2.events.handlers.BucketHandler;
-import com.austinv11.dartcraft2.items.ItemClipboard;
-import com.austinv11.dartcraft2.items.ItemDC;
-import com.austinv11.dartcraft2.items.ItemForceShard;
-import com.austinv11.dartcraft2.items.ItemLiquidForceBucket;
+import com.austinv11.dartcraft2.items.*;
 import com.austinv11.dartcraft2.reference.Reference;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.init.Items;
@@ -18,6 +15,7 @@ public class ModItems {
 	public static final ItemDC forceShard = new ItemForceShard();
 	public static final Item liquidForceBucket = new ItemLiquidForceBucket(ModFluids.liquidForce);
 	public static final ItemDC clipboard = new ItemClipboard();
+	public static final ItemDC forceIngot = new ItemForceIngot();
 	
 	public static void init() {
 		GameRegistry.registerItem(forceShard, "forceShard");
@@ -25,5 +23,6 @@ public class ModItems {
 		FluidContainerRegistry.registerFluidContainer(ModFluids.liquidForce, new ItemStack(liquidForceBucket), new ItemStack(Items.bucket));
 		BucketHandler.buckets.put(ModBlocks.liquidForce, liquidForceBucket);
 		GameRegistry.registerItem(clipboard, "clipboard");
+		GameRegistry.registerItem(forceIngot, "forceIngot");
 	}
 }

@@ -9,6 +9,7 @@ import net.minecraft.world.World;
 public class ItemClipboard extends ItemDC {
 	
 	public ItemClipboard() {
+		super();
 		this.setUnlocalizedName("clipboard");
 	}
 	

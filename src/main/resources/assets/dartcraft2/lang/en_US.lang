@@ -7,6 +7,7 @@ tile.dartcraft2:liquidForce.name=Liquid Force
 item.dartcraft2:forceShard.name=Force Shard
 item.dartcraft2:liquidForceBucket.name=Liquid Force Bucket
 item.dartcraft2:clipboard.name=Clipboard
+item.dartcraft2:forceIngot.name=Force Ingot
 
 #Creative Tabs
 itemGroup.dartcraft2=DartCraft 2

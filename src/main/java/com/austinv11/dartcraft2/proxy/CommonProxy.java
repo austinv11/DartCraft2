@@ -22,6 +22,7 @@ public class CommonProxy {
 		OreDictionary.registerOre("orePower", ModBlocks.powerOre);
 		OreDictionary.registerOre("orePower", ModBlocks.netherPowerOre);
 		OreDictionary.registerOre("gemForce", ModItems.forceShard);
+		OreDictionary.registerOre("ingotForce", ModItems.forceIngot);
 	}
 	
 	public void registerTileEntities() {
