@@ -12,7 +12,7 @@ import java.util.Random;
 /**
  * Spawns power ore in the overworld and nether.
  * It spawns in the overworld between y levels 1 and 64, nether 1 and 256.
- * It spawns in veins of 1 to 5 ores which spawn anywhere withing a 3x3x3 area of the center block.
+ * It spawns in veins of 1 to 5 ores which spawn anywhere within a 3x3x3 area of the center block.
  * There are 3-10 veins in every chunk.
  */
 public class WorldGenPowerOre implements IWorldGenerator {
@@ -45,7 +45,7 @@ public class WorldGenPowerOre implements IWorldGenerator {
 				int newX = MathHelper.getRandomIntegerInRange(rng, x-1, x+1);
 				int newZ =  MathHelper.getRandomIntegerInRange(rng, z-1, z+1);
 				int newY =  MathHelper.getRandomIntegerInRange(rng, y-1, y+1);
-				if (!world.isAirBlock(newX, newY, newZ))
+				if (!WorldGenHelper.isLocationSuitableForOre(world, newX, newY, newZ))
 					WorldGenHelper.spawnOreBlock(world, newX, newY, newZ, world.provider.dimensionId == 0 ? ModBlocks.powerOre : ModBlocks.netherPowerOre);
 			}
 		}

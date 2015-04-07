@@ -15,6 +15,10 @@ import net.minecraft.util.AxisAlignedBB;
 
 import java.util.List;
 
+/**
+ * Liquid force sets air to max, glows in the dark, provides regen and if an entity is a mob weakness as well.
+ * If the entity is a zombie, it will drop its gear and it will be turned to a child zombie.
+ */
 public class TileEntityLiquidForce extends TileEntity {
 	
 	public static final String publicName = "liquidForce"; 
