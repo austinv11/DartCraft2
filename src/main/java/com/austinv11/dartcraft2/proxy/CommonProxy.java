@@ -46,6 +46,8 @@ public class CommonProxy {
 		OreDictionary.registerOre("treeForceLeaves", new ItemStack(ModBlocks.forceLeaves, 1, 3));
 		OreDictionary.registerOre("treeForceLeaves", new ItemStack(ModBlocks.forceLeaves2, 1, 0));
 		OreDictionary.registerOre("treeForceLeaves", new ItemStack(ModBlocks.forceLeaves2, 1, 1));
+		OreDictionary.registerOre("plankForce", ModBlocks.forcePlanks);
+		OreDictionary.registerOre("stickForce", ModItems.forceStick);
 	}
 	
 	public void registerTileEntities() {

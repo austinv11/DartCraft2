@@ -19,6 +19,7 @@ public class ModBlocks {
 	public static final Block forceLog2 = new BlockForceLog2();
 	public static final Block forceLeaves = new BlockForceLeaves();
 	public static final Block forceLeaves2 = new BlockForceLeaves2();
+	public static final BlockDC forcePlanks = new BlockForcePlanks();
 	
 	public static void init() {
 		GameRegistry.registerBlock(powerOre, "powerOre");
@@ -28,5 +29,6 @@ public class ModBlocks {
 		GameRegistry.registerBlock(forceLog2, ItemBlockForceLog.class, "forceLog2");
 		GameRegistry.registerBlock(forceLeaves, ItemBlockForceLeaves.class, "forceLeaves");
 		GameRegistry.registerBlock(forceLeaves2, ItemBlockForceLeaves.class, "forceLeaves2");
+		GameRegistry.registerBlock(forcePlanks, "forcePlanks");
 	}
 }

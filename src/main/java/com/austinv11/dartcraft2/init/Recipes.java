@@ -14,10 +14,12 @@ public class Recipes {
 	
 	public static void init() {
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.clipboard), "pip", "pap", "pap", 'p', "plankWood", 'i', "ingotIron", 'a', new ItemStack(Items.paper)));
+		
 		ItemStack nuggets = new ItemStack(ModItems.forceNugget);
 		nuggets.stackSize = 9;
 		GameRegistry.addRecipe(new ShapelessOreRecipe(nuggets, "ingotForce"));
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ModItems.forceIngot), "nuggetForce", "nuggetForce", "nuggetForce", "nuggetForce", "nuggetForce", "nuggetForce", "nuggetForce", "nuggetForce", "nuggetForce"));
+		
 		ItemStack twoIngots = new ItemStack(ModItems.forceIngot);
 		twoIngots.stackSize = 2;
 		ItemStack threeIngots = twoIngots.copy();
@@ -31,6 +33,11 @@ public class Recipes {
 		GameRegistry.addRecipe(new ShapelessOreRecipe(twoIngots, "gemForce", "ingotCopper", "ingotCopper"));
 		GameRegistry.addRecipe(new ShapelessOreRecipe(twoIngots, "gemForce", "ingotTin", "ingotTin"));
 		//TODO: Mob ingot recipes for force ingots
+		
+		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ModBlocks.forcePlanks, 4), "logForce"));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.forceStick, 4), "p ", "p ", 'p', "plankForce"));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.forceStick, 8), "w ", "w ", 'w', "logForce"));
+		
 		if (Loader.isModLoaded("Forestry"))
 			loadForestryRecipes();
 	}

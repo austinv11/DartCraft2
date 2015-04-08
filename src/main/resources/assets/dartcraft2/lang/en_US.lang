@@ -5,6 +5,7 @@ tile.dartcraft2:liquidForce.name=Liquid Force
 tile.dartcraft2:forceSapling.name=Force Sapling
 tile.dartcraft2:forceLog.name=Force Wood
 tile.dartcraft2:forceLeaves.name=Force Leaves
+tile.dartcraft2:forcePlanks.name=Force Planks
 
 #Items
 item.dartcraft2:forceGem.name=Force Gem
@@ -12,6 +13,7 @@ item.dartcraft2:liquidForceBucket.name=Liquid Force Bucket
 item.dartcraft2:clipboard.name=Clipboard
 item.dartcraft2:forceIngot.name=Force Ingot
 item.dartcraft2:forceNugget.name=Force Nugget
+item.dartcraft2:forceStick.name=Force Stick
 
 #Fluid
 fluid.tile.dartcraft2:liquidForce=Liquid Force
