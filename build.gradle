@@ -19,6 +19,11 @@ repositories {
     maven {
         url = "http://jcenter.bintray.com/"
     }
+    maven {
+        name = "chickenbones"
+        url = "http://chickenbones.net/maven"
+    }
+
 }
 
 apply plugin: 'forge'
@@ -48,6 +53,9 @@ dependencies {
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
     compile "com.austinv11.collectiveframework:CollectiveFramework:1.0.0-68:deobf"
+    compile "codechicken:NotEnoughItems:1.7.10-1.0.3.74:dev"
+    compile "codechicken:CodeChickenLib:1.7.10-1.1.1.99:dev"
+    compile "codechicken:CodeChickenCore:1.7.10-1.0.4.29:dev"
 }
 
 processResources
