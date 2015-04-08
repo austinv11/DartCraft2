@@ -2,6 +2,9 @@
 tile.dartcraft2:powerOre.name=Power Ore
 tile.dartcraft2:netherPowerOre.name=Nether Power Ore
 tile.dartcraft2:liquidForce.name=Liquid Force
+tile.dartcraft2:forceSapling.name=Force Sapling
+tile.dartcraft2:forceLog.name=Force Wood
+tile.dartcraft2:forceLeaves.name=Force Leaves
 
 #Items
 item.dartcraft2:forceGem.name=Force Gem

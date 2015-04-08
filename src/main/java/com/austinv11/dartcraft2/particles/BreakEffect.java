@@ -28,4 +28,8 @@ public class BreakEffect extends EntityFX {
 	public int getFXLayer() {
 		return 1;
 	}
+	
+	public void setGravity(float gravity) {
+		this.particleGravity = gravity;
+	}
 }

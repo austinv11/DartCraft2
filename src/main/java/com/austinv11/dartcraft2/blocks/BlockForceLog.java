@@ -1,14 +1,17 @@
 package com.austinv11.dartcraft2.blocks;
 
-import com.austinv11.collectiveframework.minecraft.blocks.BlockBase;
 import com.austinv11.dartcraft2.creativetab.CreativeTabDC;
 import com.austinv11.dartcraft2.particles.BreakEffect;
 import com.austinv11.dartcraft2.reference.Reference;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.block.material.Material;
+import net.minecraft.block.BlockLog;
 import net.minecraft.client.particle.EffectRenderer;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
@@ -16,32 +19,51 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class BlockDC extends BlockBase {
+public class BlockForceLog extends BlockLog {
 	
 	private Random rng = new Random();
+	public String[] variants = new String[]{"Oak", "Spruce", "Birch", "Jungle"};
 	
-	public BlockDC() {
+	public BlockForceLog() {
 		super();
-	}
-	
-	public BlockDC(Material material) {
-		super(material);
-	}
-	
-	@Override
-	public CreativeTabs getTab() {
-		return CreativeTabDC.DC_TAB;
+		this.setBlockName("forceLog");
+		this.setCreativeTab(CreativeTabDC.DC_TAB);
+		this.setHardness(2.0F);
+		this.setStepSound(soundTypeWood);
 	}
 	
 	@Override
-	public String getModId() {
-		return Reference.MOD_ID;
+	@SideOnly(Side.CLIENT)
+	public void getSubBlocks(Item item, CreativeTabs tab, List items) {
+		for (int i = 0; i < variants.length; i++)
+			items.add(new ItemStack(item, 1, i));
+	}
+	
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void registerBlockIcons(IIconRegister iconRegister) {
+		this.field_150167_a = new IIcon[variants.length];
+		this.field_150166_b = new IIcon[variants.length];
+		
+		for (int i = 0; i < this.field_150167_a.length; ++i) {
+			this.field_150167_a[i] = iconRegister.registerIcon(String.format("%s", getUnwrappedUnlocalizedName(this.getUnlocalizedName())) + "_" + variants[i]);
+			this.field_150166_b[i] = iconRegister.registerIcon(String.format("%s", getUnwrappedUnlocalizedName(this.getUnlocalizedName())) + "_" + variants[i] + "_top");
+		}
+	}
+	
+	@Override
+	public String getUnlocalizedName(){//Formats the name
+		return String.format("tile.%s%s", Reference.MOD_ID.toLowerCase()+":", getUnwrappedUnlocalizedName(getUnwrappedUnlocalizedName(super.getUnlocalizedName())));
+	}
+	
+	protected String getUnwrappedUnlocalizedName(String unlocalizedName){//Removes the "item." from the item name
+		return unlocalizedName.substring(unlocalizedName.indexOf(".") + 1);
 	}
 	
 	@Override
 	@SideOnly(Side.CLIENT)
 	public boolean addDestroyEffects(World world, int x, int y, int z, int meta, EffectRenderer effectRenderer) {
-		if (world.getBlock(x, y, z) instanceof BlockDC) {
+		if (world.getBlock(x, y, z) instanceof BlockForceLog) {
 			for (int i = 0; i < 7; i++)
 				effectRenderer.addEffect(new BreakEffect(world, x+.5+(rng.nextGaussian()/3), y+.5+(rng.nextGaussian()/3), z+.5+(rng.nextGaussian()/3), rng.nextGaussian(), rng.nextGaussian(), rng.nextGaussian()));
 			return true;

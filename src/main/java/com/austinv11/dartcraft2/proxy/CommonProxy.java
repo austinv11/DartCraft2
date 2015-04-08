@@ -5,7 +5,10 @@ import com.austinv11.dartcraft2.events.handlers.BucketHandler;
 import com.austinv11.dartcraft2.init.ModBlocks;
 import com.austinv11.dartcraft2.init.ModItems;
 import com.austinv11.dartcraft2.network.ClipboardButtonPressPacket;
+import com.austinv11.dartcraft2.tileentities.TileEntityForceSapling;
+import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -25,10 +28,16 @@ public class CommonProxy {
 		OreDictionary.registerOre("gemForce", ModItems.forceGem);
 		OreDictionary.registerOre("ingotForce", ModItems.forceIngot);
 		OreDictionary.registerOre("nuggetForce", ModItems.forceNugget);
+		OreDictionary.registerOre("saplingForce", new ItemStack(ModBlocks.forceSapling, 1, 0));
+		OreDictionary.registerOre("saplingForce", new ItemStack(ModBlocks.forceSapling, 1, 1));
+		OreDictionary.registerOre("saplingForce", new ItemStack(ModBlocks.forceSapling, 1, 2));
+		OreDictionary.registerOre("saplingForce", new ItemStack(ModBlocks.forceSapling, 1, 3));
+		OreDictionary.registerOre("saplingForce", new ItemStack(ModBlocks.forceSapling, 1, 4));
+		OreDictionary.registerOre("saplingForce", new ItemStack(ModBlocks.forceSapling, 1, 5));
 	}
 	
 	public void registerTileEntities() {
-		
+		GameRegistry.registerTileEntity(TileEntityForceSapling.class, TileEntityForceSapling.publicName);
 	}
 	
 	public void registerPackets() {
