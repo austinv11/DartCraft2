@@ -5,7 +5,7 @@ import net.minecraft.tileentity.TileEntity;
 
 public class TileEntityForceSapling extends TileEntity {
 	
-	public static final int MAX_CYCLES = 5;
+	public static final int MAX_CYCLES = 3;
 	public static String publicName = "forceSapling";
 	public int currentCycle = 0;
 	

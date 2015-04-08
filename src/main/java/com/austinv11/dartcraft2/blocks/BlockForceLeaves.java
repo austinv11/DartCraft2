@@ -1,5 +1,6 @@
 package com.austinv11.dartcraft2.blocks;
 
+import com.austinv11.dartcraft2.creativetab.CreativeTabDC;
 import com.austinv11.dartcraft2.init.ModBlocks;
 import com.austinv11.dartcraft2.init.ModItems;
 import com.austinv11.dartcraft2.particles.BreakEffect;
@@ -36,6 +37,9 @@ public class BlockForceLeaves extends BlockLeaves {
 	public BlockForceLeaves() {
 		super();
 		this.setBlockName("forceLeaves");
+		this.setLightLevel(.6F);
+		this.setLightOpacity(0);
+		this.setCreativeTab(CreativeTabDC.DC_TAB);
 	}
 	
 	@Override
@@ -46,10 +50,10 @@ public class BlockForceLeaves extends BlockLeaves {
 	@Override
 	public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
 		ArrayList<ItemStack> drops = new ArrayList<ItemStack>();
-		if (MathHelper.getRandomIntegerInRange(rng, 0, 19-fortune) == 1) {
+		if (MathHelper.getRandomIntegerInRange(rng, 0, 16-fortune) == 1) {
 			drops.add(new ItemStack(ModBlocks.forceSapling, 1, damageDropped(metadata)));
 		}
-		if (MathHelper.getRandomIntegerInRange(rng, 0, 14-fortune) == 1) {
+		if (MathHelper.getRandomIntegerInRange(rng, 0, 10-fortune) == 1) {
 			drops.add(new ItemStack(ModItems.forceNugget));
 		}
 		return drops;
@@ -59,6 +63,12 @@ public class BlockForceLeaves extends BlockLeaves {
 	public boolean isOpaqueCube() {
 		return false;
 	}
+	
+//	@Override
+//	@SideOnly(Side.CLIENT)
+//	public boolean shouldSideBeRendered(IBlockAccess world, int x, int y, int z, int side) {
+//		return Minecraft.getMinecraft().gameSettings.fancyGraphics || super.shouldSideBeRendered(world, x, y, z, side);
+//	}
 	
 	@Override
 	@SideOnly(Side.CLIENT)

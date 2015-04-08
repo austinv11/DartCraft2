@@ -28,12 +28,24 @@ public class CommonProxy {
 		OreDictionary.registerOre("gemForce", ModItems.forceGem);
 		OreDictionary.registerOre("ingotForce", ModItems.forceIngot);
 		OreDictionary.registerOre("nuggetForce", ModItems.forceNugget);
-		OreDictionary.registerOre("saplingForce", new ItemStack(ModBlocks.forceSapling, 1, 0));
-		OreDictionary.registerOre("saplingForce", new ItemStack(ModBlocks.forceSapling, 1, 1));
-		OreDictionary.registerOre("saplingForce", new ItemStack(ModBlocks.forceSapling, 1, 2));
-		OreDictionary.registerOre("saplingForce", new ItemStack(ModBlocks.forceSapling, 1, 3));
-		OreDictionary.registerOre("saplingForce", new ItemStack(ModBlocks.forceSapling, 1, 4));
-		OreDictionary.registerOre("saplingForce", new ItemStack(ModBlocks.forceSapling, 1, 5));
+		OreDictionary.registerOre("treeForce", new ItemStack(ModBlocks.forceSapling, 1, 0));
+		OreDictionary.registerOre("treeForce", new ItemStack(ModBlocks.forceSapling, 1, 1));
+		OreDictionary.registerOre("treeForce", new ItemStack(ModBlocks.forceSapling, 1, 2));
+		OreDictionary.registerOre("treeForce", new ItemStack(ModBlocks.forceSapling, 1, 3));
+		OreDictionary.registerOre("treeForce", new ItemStack(ModBlocks.forceSapling, 1, 4));
+		OreDictionary.registerOre("treeForce", new ItemStack(ModBlocks.forceSapling, 1, 5));
+		OreDictionary.registerOre("logForce", new ItemStack(ModBlocks.forceLog, 1, 0));
+		OreDictionary.registerOre("logForce", new ItemStack(ModBlocks.forceLog, 1, 1));
+		OreDictionary.registerOre("logForce", new ItemStack(ModBlocks.forceLog, 1, 2));
+		OreDictionary.registerOre("logForce", new ItemStack(ModBlocks.forceLog, 1, 3));
+		OreDictionary.registerOre("logForce", new ItemStack(ModBlocks.forceLog2, 1, 0));
+		OreDictionary.registerOre("logForce", new ItemStack(ModBlocks.forceLog2, 1, 1));
+		OreDictionary.registerOre("treeForceLeaves", new ItemStack(ModBlocks.forceLeaves, 1, 0));
+		OreDictionary.registerOre("treeForceLeaves", new ItemStack(ModBlocks.forceLeaves, 1, 1));
+		OreDictionary.registerOre("treeForceLeaves", new ItemStack(ModBlocks.forceLeaves, 1, 2));
+		OreDictionary.registerOre("treeForceLeaves", new ItemStack(ModBlocks.forceLeaves, 1, 3));
+		OreDictionary.registerOre("treeForceLeaves", new ItemStack(ModBlocks.forceLeaves2, 1, 0));
+		OreDictionary.registerOre("treeForceLeaves", new ItemStack(ModBlocks.forceLeaves2, 1, 1));
 	}
 	
 	public void registerTileEntities() {

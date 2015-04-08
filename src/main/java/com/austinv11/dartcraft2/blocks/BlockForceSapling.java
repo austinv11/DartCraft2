@@ -69,41 +69,278 @@ public class BlockForceSapling extends BlockBush implements IGrowable, ITileEnti
 			StructureCreator structureCreator = new StructureCreator();
 			
 			if (meta == 0) { //Oak
-				if (MathHelper.getRandomIntegerInRange(random, 0, 19) == 1) {
-					
-				} else {
-					int maxHeight = MathHelper.getRandomIntegerInRange(random, 5, 8);
-					world.setBlockToAir(x, y, z);
-					for (int i = y; i < y+1+maxHeight; i++)
-						structureCreator.addBlock(new Location(x, i, z, world), ModBlocks.forceLog);
-					for (int j = 2; j < 4; j++)
-						for (int k = -2; k < 3; k++)
-							for (int l = -2; l < 3; l++)
-								structureCreator.addBlock(new Location(x+k, y+maxHeight-j, z+l, world), ModBlocks.forceLeaves);
-					for (int j = 0; j < 2; j++)
-						for (int k = -1; k < 2; k++)
-							for (int l = -1; l < 2; l++)
-								structureCreator.addBlock(new Location(x+k, y+maxHeight-j, z+l, world), ModBlocks.forceLeaves);
-				}
+				int maxHeight = MathHelper.getRandomIntegerInRange(random, 4, 7);
+				for (int i = y; i < y+maxHeight; i++)
+					structureCreator.addBlock(new Location(x, i, z, world), ModBlocks.forceLog);
+				
+				for (int j = 2; j < 4; j++)
+					for (int k = -2; k < 3; k++)
+						for (int l = -2; l < 3; l++)
+							if (!(l == 0 && k == 0))
+								if ((k == -2 || k == 2) && (l == -2 || l == 2)) {
+									if (MathHelper.getRandomIntegerInRange(random, 0, 1) == 1) {
+										structureCreator.addBlock(new Location(x+k, y+maxHeight-j, z+l, world), ModBlocks.forceLeaves, 0, new LeafValidityChecker());
+									}
+								} else
+									structureCreator.addBlock(new Location(x+k, y+maxHeight-j, z+l, world), ModBlocks.forceLeaves, 0, new LeafValidityChecker());
+				
+				for (int j = 0; j < 2; j++)
+					for (int k = -1; k < 2; k++)
+						for (int l = -1; l < 2; l++)
+							if (j == 1 || !(k == 0 && l == 0) || j == 0)
+								if ((k == -1 || k == 1) && (l == -1 || l == 1) && j == 1) {
+									if (MathHelper.getRandomIntegerInRange(random, 0, 1) == 1)
+										structureCreator.addBlock(new Location(x+k, y+maxHeight-j, z+l, world), ModBlocks.forceLeaves, 0, new LeafValidityChecker());
+								} else if ((k == 0 || l == 0) && !(k == 0 && l == 0 && j == 1)) {
+									structureCreator.addBlock(new Location(x+k, y+maxHeight-j, z+l, world), ModBlocks.forceLeaves, 0, new LeafValidityChecker());
+								}
 				
 			} else if (meta == 1) { //Spruce
+				int maxHeight = MathHelper.getRandomIntegerInRange(random, 4, 9);
+				int logHeight = maxHeight-1+MathHelper.getRandomIntegerInRange(random, 0, 1);
+				for (int i = y; i < y+logHeight; i++)
+					structureCreator.addBlock(new Location(x, i, z, world), ModBlocks.forceLog, 1);
 				
+				if (MathHelper.getRandomIntegerInRange(random, 0, 1) == 1) { //Big leaf base
+					for (int j = -3; j < 4; j++)
+						for (int k = -3; k < 4; k++)
+							if (!(j == 0 && k == 0) && !((j == -3 || j == 3) && (k == -3 || k == 3)))
+								structureCreator.addBlock(new Location(x+j, y+maxHeight-6, z+k, world), ModBlocks.forceLeaves, 1, new LeafValidityChecker());
+					
+				} else { //Small leaf base
+					for (int j = -1; j < 2; j++)
+						for (int k = -1; k < 2; k++)
+							if ((j == 0 || k == 0) && j != k)
+								structureCreator.addBlock(new Location(x+j, y+maxHeight-6, z+k, world), ModBlocks.forceLeaves, 1, new LeafValidityChecker());
+				}
+				
+				for (int j = -2; j < 3; j++)
+					for (int k = -2; k < 3; k++)
+						if (!(j == 0 && k == 0 && maxHeight-5 <= logHeight) && !((j == -2 || j == 2) && (k == -2 || k == 2)))
+							structureCreator.addBlock(new Location(x+j, y+maxHeight-5, z+k, world), ModBlocks.forceLeaves, 1, new LeafValidityChecker());
+				
+				for (int j = -1; j < 2; j++)
+					for (int k = -1; k < 2; k++)
+						if (!(j == 0 && k == 0 && maxHeight-4 <= logHeight) && (j == 0 || k == 0))
+							structureCreator.addBlock(new Location(x+j, y+maxHeight-4, z+k, world), ModBlocks.forceLeaves, 1, new LeafValidityChecker());
+				
+				for (int j = -2; j < 3; j++)
+					for (int k = -2; k < 3; k++)
+						if (!(j == 0 && k == 0 && maxHeight-3 <= logHeight) && !((j == -2 || j == 2) && (k == -2 || k == 2)))
+							structureCreator.addBlock(new Location(x+j, y+maxHeight-3, z+k, world), ModBlocks.forceLeaves, 1, new LeafValidityChecker());
+				
+				for (int j = -1; j < 2; j++)
+					for (int k = -1; k < 2; k++)
+						if (!(j == 0 && k == 0 && maxHeight-1 <= logHeight) && (j == 0 || k == 0))
+							structureCreator.addBlock(new Location(x+j, y+maxHeight-2, z+k, world), ModBlocks.forceLeaves, 1, new LeafValidityChecker());
+				
+				structureCreator.addBlock(new Location(x, y+maxHeight-1, z, world), ModBlocks.forceLeaves, 1, new LeafValidityChecker());
+				
+				for (int j = -1; j < 2; j++)
+					for (int k = -1; k < 2; k++)
+						if (j == 0 || k == 0)
+							structureCreator.addBlock(new Location(x+j, y+maxHeight, z+k, world), ModBlocks.forceLeaves, 1, new LeafValidityChecker());
 				
 			} else if (meta == 2) { //Birch
+				int maxHeight = MathHelper.getRandomIntegerInRange(random, 4, 7);
+				for (int i = y; i < y+maxHeight; i++)
+					structureCreator.addBlock(new Location(x, i, z, world), ModBlocks.forceLog, 2);
 				
+				for (int j = 2; j < 4; j++)
+					for (int k = -2; k < 3; k++)
+						for (int l = -2; l < 3; l++)
+							if (!(l == 0 && k == 0))
+								if ((k == -2 || k == 2) && (l == -2 || l == 2)) {
+									if (MathHelper.getRandomIntegerInRange(random, 0, 1) == 1) {
+										structureCreator.addBlock(new Location(x+k, y+maxHeight-j, z+l, world), ModBlocks.forceLeaves, 2, new LeafValidityChecker());
+									}
+								} else
+									structureCreator.addBlock(new Location(x+k, y+maxHeight-j, z+l, world), ModBlocks.forceLeaves, 2, new LeafValidityChecker());
 				
-			} else if (meta == 3) { //Jungle
+				for (int j = 0; j < 2; j++)
+					for (int k = -1; k < 2; k++)
+						for (int l = -1; l < 2; l++)
+							if (j == 1 || !(k == 0 && l == 0) || j == 0)
+								if ((k == -1 || k == 1) && (l == -1 || l == 1) && j == 1) {
+									if (MathHelper.getRandomIntegerInRange(random, 0, 1) == 1)
+										structureCreator.addBlock(new Location(x+k, y+maxHeight-j, z+l, world), ModBlocks.forceLeaves, 2, new LeafValidityChecker());
+								} else if ((k == 0 || l == 0) && !(k == 0 && l == 0 && j == 1)) {
+									structureCreator.addBlock(new Location(x+k, y+maxHeight-j, z+l, world), ModBlocks.forceLeaves, 2, new LeafValidityChecker());
+								}
 				
+			} else if (meta == 3) { //Jungle TODO: Big tree
+				int maxHeight = MathHelper.getRandomIntegerInRange(random, 7, 10);
+				for (int i = y; i < y+maxHeight; i++)
+					structureCreator.addBlock(new Location(x, i, z, world), ModBlocks.forceLog, 3);
+				
+				for (int j = 2; j < 4; j++)
+					for (int k = -2; k < 3; k++)
+						for (int l = -2; l < 3; l++)
+							if (!(l == 0 && k == 0))
+								if ((k == -2 || k == 2) && (l == -2 || l == 2)) {
+									if (MathHelper.getRandomIntegerInRange(random, 0, 1) == 1) {
+										structureCreator.addBlock(new Location(x+k, y+maxHeight-j, z+l, world), ModBlocks.forceLeaves, 3, new LeafValidityChecker());
+									}
+								} else
+									structureCreator.addBlock(new Location(x+k, y+maxHeight-j, z+l, world), ModBlocks.forceLeaves, 3, new LeafValidityChecker());
+				
+				for (int j = 0; j < 2; j++)
+					for (int k = -1; k < 2; k++)
+						for (int l = -1; l < 2; l++)
+							if (j == 1 || !(k == 0 && l == 0) || j == 0)
+								if ((k == -1 || k == 1) && (l == -1 || l == 1) && j == 1) {
+									if (MathHelper.getRandomIntegerInRange(random, 0, 1) == 1)
+										structureCreator.addBlock(new Location(x+k, y+maxHeight-j, z+l, world), ModBlocks.forceLeaves, 3, new LeafValidityChecker());
+								} else if ((k == 0 || l == 0) && !(k == 0 && l == 0 && j == 1)) {
+									structureCreator.addBlock(new Location(x+k, y+maxHeight-j, z+l, world), ModBlocks.forceLeaves, 3, new LeafValidityChecker());
+								}
 				
 			} else if (meta == 4) { //Acacia
+				int treeFlag = MathHelper.getRandomIntegerInRange(random, 0, 1);
+				int xOffset = 0, zOffset = 0;
+				while (xOffset == 0 && zOffset == 0) {
+					xOffset = MathHelper.getRandomIntegerInRange(random, -1, 1);
+					zOffset = MathHelper.getRandomIntegerInRange(random, -1, 1);
+				}
+				boolean didOffset = false;
+				int maxHeight = MathHelper.getRandomIntegerInRange(random, 6, 8);
 				
+				if (treeFlag == 0) {
+					while (Math.abs(xOffset) == Math.abs(zOffset)) {
+						xOffset = MathHelper.getRandomIntegerInRange(random, -1, 1);
+						zOffset = MathHelper.getRandomIntegerInRange(random, -1, 1);
+					}
+					for (int i = y; i < y+maxHeight; i++) {
+						if (!didOffset)
+							didOffset = MathHelper.getRandomIntegerInRange(random, 0, 3) == 0;
+						else {
+							x += xOffset;
+							z += zOffset;
+						}
+						structureCreator.addBlock(new Location(x, i, z, world), ModBlocks.forceLog2);
+					}
+					
+				} else {
+					for (int i = y; i < y+maxHeight; i++) {
+						structureCreator.addBlock(new Location(x, i, z, world), ModBlocks.forceLog2);
+					}
+					
+					int newX = x, newZ = z;
+					for (int i = y; i < y+maxHeight-2; i++) {
+						if (!didOffset)
+							didOffset = MathHelper.getRandomIntegerInRange(random, 0, 4) == 0;
+						else {
+							newX += xOffset;
+							newZ += zOffset;
+							structureCreator.addBlock(new Location(newX, i, newZ, world), ModBlocks.forceLog2);
+						}
+					}
+					
+					if (didOffset) {
+						for (int j = -2; j < 3; j++)
+							for (int k = -2; k < 3; k++)
+								if (!(j == 0 && k == 0) && (Math.abs(j) != Math.abs(k) || Math.abs(j) == 1))
+									structureCreator.addBlock(new Location(newX+j, y+maxHeight-3, newZ+k, world), ModBlocks.forceLeaves2, 0, new LeafValidityChecker());
+						
+						for (int j = -1; j < 2; j++)
+							for (int k = -1; k < 2; k++)
+								structureCreator.addBlock(new Location(newX+j, y+maxHeight-2, newZ+k, world), ModBlocks.forceLeaves2, 0, new LeafValidityChecker());
+					}
+				}
 				
-			} else if (meta == 5) { //Roofed Oak
+				for (int j = -3; j < 4; j++)
+					for (int k = -3; k < 4; k++)
+						if (!(j == 0 && k == 0) && !((j == -3 || j == 3) && (k == -3 || k == 3)))
+							structureCreator.addBlock(new Location(x+j, y+maxHeight-1, z+k, world), ModBlocks.forceLeaves2, 0, new LeafValidityChecker());
 				
+				for (int j = -2; j < 3; j++)
+					for (int k = -2; k < 3; k++)
+						if ((j == 0 && (k == -2 || k == 2)) || (k == 0 && (j == -2 || j == 2))
+								|| ((j <= 1 && j >= -1) && (k <= 1 && k >= -1)))
+							structureCreator.addBlock(new Location(x+j, y+maxHeight, z+k, world), ModBlocks.forceLeaves2, 0, new LeafValidityChecker());
+				
+			} else if (meta == 5) { //Roofed Oak FIXME
+				Location[] saplings = getSaplingsForBigTree(world, x, y, z, meta);
+				if (saplings == null)
+					return;
+				int maxHeight = MathHelper.getRandomIntegerInRange(random, 5, 8);
+				
+				for (Location l : saplings) {
+					int xCoord = l.getRoundedX();
+					int yCoord = l.getRoundedY();
+					int zCoord = l.getRoundedZ();
+					
+					for (int i = 0; i < maxHeight-1; i++)
+						structureCreator.addBlock(new Location(xCoord, yCoord+i, zCoord, world), ModBlocks.forceLog2, 1);
+					
+					boolean doBranch = MathHelper.getRandomIntegerInRange(random, 0, 3) == 1;
+					if (doBranch) {
+						int xOffset = 0, zOffset = 0;
+						while (xOffset == 0 && zOffset == 0) {
+							xOffset = MathHelper.getRandomIntegerInRange(random, -1, 1);
+							zOffset = MathHelper.getRandomIntegerInRange(random, -1, 1);
+						}
+						int startHeight = MathHelper.getRandomIntegerInRange(random, 4, 6);
+						boolean isSecond = true;
+						
+						for (int i = startHeight; i < maxHeight-2; i++) {
+							xCoord += xOffset;
+							zCoord += zOffset;
+							if (isSecond) {
+								isSecond = false;
+								if (MathHelper.getRandomIntegerInRange(random, 0, 3) == 1) {
+									xCoord -= xOffset;
+									zCoord -= zOffset;
+								}
+							}
+							structureCreator.addBlock(new Location(xCoord, yCoord+i, zCoord, world), ModBlocks.forceLog2, 1);
+						}
+						
+						
+					}
+					
+					structureCreator.addBlock(new Location(xCoord, yCoord+maxHeight, zCoord, world), ModBlocks.forceLeaves2, 1, new LeafValidityChecker());
+					
+					l.getWorld().setBlockToAir(l.getRoundedX(), l.getRoundedY(), l.getRoundedZ());
+				}
+				
+				for (int i = -2; i < 5; i++)
+					for (int j = -2; j < 5; j++)
+						
+				
+				if (structureCreator.isStructureValid()) {
+					structureCreator.generateStructure();
+				} else {
+					for (Location l : saplings)
+						l.getWorld().setBlock(l.getRoundedX(), l.getRoundedY(), l.getRoundedZ(), ModBlocks.forceSapling, meta, 0);
+				}
+				return;
 			}
 			
-			structureCreator.generateStructure();
+			world.setBlockToAir(x, y, z);
+			if (structureCreator.isStructureValid()) {
+				structureCreator.generateStructure();
+			} else {
+				world.setBlock(x, y, z, ModBlocks.forceSapling, meta, 0);
+			}
 		}
+	}
+	
+	private Location[] getSaplingsForBigTree(World world, int x, int y, int z, int meta) {
+		List<Location> locations = new ArrayList<Location>();
+		for (int i = -1; i < 2; i++) {
+			for (int j = -1; j < 2; j++)
+				if (!world.isAirBlock(x+i, y, z+j) && world.getBlock(x+i, y, z+j) instanceof BlockForceSapling
+						&& world.getBlockMetadata(x+i, y, z+j) == meta) {
+					Location location = new Location(x+i, y, z+j, world);
+					if (!locations.contains(location))
+						locations.add(location);
+				}
+			if (locations.size() == 4)
+				break;
+		}
+		
+		return locations.size() == 4 ? locations.toArray(new Location[4]) : null;
 	}
 	
 	@Override

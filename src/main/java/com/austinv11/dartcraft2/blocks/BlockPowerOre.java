@@ -39,6 +39,4 @@ public class BlockPowerOre extends BlockDC {
 		}
 		return 0;
 	}
-	
-	
 }
