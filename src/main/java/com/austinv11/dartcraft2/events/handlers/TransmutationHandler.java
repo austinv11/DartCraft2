@@ -52,6 +52,8 @@ public class TransmutationHandler {
 				((ITransmutationItem)rod.getItem()).transmute(rod, toTransmute.getItem(), toTransmute.getItemDamage(), 
 						transmuted.getItem(), transmuted.getItemDamage());
 				event.player.inventory.addItemStackToInventory(rod);
+				if (!event.player.getEntityWorld().isRemote)
+					DartCraft2.NETWORK.sendToAll(new DartCraftEffectPacket(event.player.getEntityWorld(), (int) event.player.posX, (int) event.player.posY, (int) event.player.posZ));
 			}
 		}
 	}

@@ -1,0 +1,8 @@
+{
+  "transmute": {
+    "category": "master", 
+    "sounds": [{
+      "name": "transmute",
+      "stream": false}]
+  }
+}

@@ -2,6 +2,7 @@ package com.austinv11.dartcraft2.network;
 
 import com.austinv11.collectiveframework.minecraft.utils.WorldUtils;
 import com.austinv11.dartcraft2.proxy.ClientProxy;
+import com.austinv11.dartcraft2.reference.Reference;
 import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
@@ -55,6 +56,7 @@ public class DartCraftEffectPacket implements IMessage {
 		@Override
 		public IMessage onMessage(DartCraftEffectPacket message, MessageContext ctx) {
 			ClientProxy.addBlockEffects(message.world, message.x, message.y, message.z, Minecraft.getMinecraft().effectRenderer, rng);
+			message.world.playSoundEffect(message.x, message.y, message.z, Reference.MOD_ID.toLowerCase()+":transmute", 1, 1);
 			return null;
 		}
 	}
