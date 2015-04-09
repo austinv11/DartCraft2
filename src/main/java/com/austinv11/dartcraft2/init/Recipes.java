@@ -41,6 +41,8 @@ public class Recipes {
 		
 		GameRegistry.addRecipe(new RecipeTransmutation());
 		
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.forceRod), "  i", " s ", "r  ", 'i', "ingotForce", 's', "stickForce", 'r', Items.redstone));
+		
 		if (Loader.isModLoaded("Forestry"))
 			loadForestryRecipes();
 	}

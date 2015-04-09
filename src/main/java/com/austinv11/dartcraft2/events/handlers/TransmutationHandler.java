@@ -24,6 +24,8 @@ public class TransmutationHandler {
 						if (toTransmute != null)
 							if (((ITransmutationItem) event.entityPlayer.getCurrentEquippedItem().getItem()).canTransmute(
 								event.world, event.x, event.y, event.z, event.entityPlayer.getCurrentEquippedItem(), toTransmute.block, toTransmute.meta)) {
+								((ITransmutationItem) event.entityPlayer.getCurrentEquippedItem().getItem()).transmute(
+										event.world, event.x, event.y, event.z, event.entityPlayer.getCurrentEquippedItem(), toTransmute.block, toTransmute.meta);
 								event.world.setBlock(event.x, event.y, event.z, toTransmute.block, toTransmute.meta, 3);
 								if (!event.world.isRemote)
 									DartCraft2.NETWORK.sendToAll(new DartCraftEffectPacket(event.world, event.x, event.y, event.z));
@@ -35,12 +37,20 @@ public class TransmutationHandler {
 	public void onCraft(PlayerEvent.ItemCraftedEvent event) {
 		if (event.crafting != null) {
 			ItemStack rod = null;
+			ItemStack toTransmute = null;
+			ItemStack transmuted = event.crafting;
 			for (int i = 0; i < event.craftMatrix.getSizeInventory(); i++)
 				if (event.craftMatrix.getStackInSlot(i) != null)
-					if (event.craftMatrix.getStackInSlot(i).getItem() instanceof ITransmutationItem)
+					if (event.craftMatrix.getStackInSlot(i).getItem() instanceof ITransmutationItem) {
 						rod = event.craftMatrix.getStackInSlot(i).copy();
-			if (rod != null) {
-				rod.setItemDamage(rod.getItemDamage()+1);
+					} else {
+						if (toTransmute != null)
+							return;
+						toTransmute = event.craftMatrix.getStackInSlot(i);
+					}
+			if (rod != null && toTransmute != null && transmuted != null) {
+				((ITransmutationItem)rod.getItem()).transmute(rod, toTransmute.getItem(), toTransmute.getItemDamage(), 
+						transmuted.getItem(), transmuted.getItemDamage());
 				event.player.inventory.addItemStackToInventory(rod);
 			}
 		}

@@ -13,6 +13,7 @@ public class BreakEffect extends EntityFX {
 		super(world, x, y, z);
 		this.particleGravity = .15F;
 		this.setParticleIcon(ClientProxy.BREAK_EFFECT_TEXTURE);
+		this.noClip = true;
 	}
 	
 	public BreakEffect(World world, double x, double y, double z, double motionX, double motionY, double motionZ) {
@@ -22,6 +23,7 @@ public class BreakEffect extends EntityFX {
 		this.motionZ = motionZ*.055;
 		this.particleGravity = .15F;
 		this.setParticleIcon(ClientProxy.BREAK_EFFECT_TEXTURE);
+		this.noClip = true;
 	}
 	
 	@Override

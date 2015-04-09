@@ -32,6 +32,5 @@ public class ModItems {
         GameRegistry.registerItem(forceRod, "forceRod");
 		GameRegistry.registerItem(forceStick, "forceStick");
         GameRegistry.registerItem(forceBelt, "forceBelt");
-
 	}
 }

@@ -4,13 +4,16 @@ import com.austinv11.dartcraft2.api.ITransmutationItem;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public class ItemForceRod extends ItemDC implements ITransmutationItem {
 	
-	public static int MAX_DURABILITY = 200;
+	public static int MAX_DURABILITY = 10;
 	
 	public ItemForceRod() {
 		super();
@@ -27,14 +30,37 @@ public class ItemForceRod extends ItemDC implements ITransmutationItem {
 	
 	@Override
 	public boolean canTransmute(World world, int x, int y, int z, ItemStack itemStack, Block toBlock, int toMeta) {
-		itemStack.setItemDamage(itemStack.getItemDamage()+1);
 		return true;
 	}
 	
 	@Override
 	public boolean canTransmute(ItemStack itemStack, Item fromItem, int fromMeta, Item toItem, int toMeta) {
-		itemStack.setItemDamage(itemStack.getItemDamage()+1);
 		return true;
+	}
+	
+	@Override
+	public void transmute(World world, int x, int y, int z, ItemStack itemStack, Block toBlock, int toMeta) {
+		itemStack.setItemDamage(itemStack.getItemDamage()+1);
+	}
+	
+	@Override
+	public void transmute(ItemStack itemStack, Item fromItem, int fromMeta, Item toItem, int toMeta) {
+		itemStack.setItemDamage(itemStack.getItemDamage()+1);
+		itemStack.damageItem(1, );
+	}
+	
+	@Override
+	public void onUpdate(ItemStack itemStack, World world, Entity entity, int slot, boolean isInHand) {
+		if (itemStack.getItemDamage() > MAX_DURABILITY) {
+			if (entity instanceof EntityPlayer) {
+				if (isInHand)
+					((EntityPlayer) entity).destroyCurrentEquippedItem();
+				else
+					((EntityPlayer) entity).inventory.setInventorySlotContents(slot, null);
+				((EntityLivingBase) entity).renderBrokenItemStack(itemStack);
+			}
+			itemStack.stackSize = 0;
+		}
 	}
 
 //	@Override

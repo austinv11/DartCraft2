@@ -79,7 +79,7 @@ public class RecipeTransmutation implements IRecipe {
 		}
 		if (transmutationItemSlot != -1 && transmuted != -1)
 			try {
-				craftingInventory.getStackInSlot(transmutationItemSlot).setItemDamage(craftingInventory.getStackInSlot(transmutationItemSlot).getItemDamage() == 0 ? 0 : craftingInventory.getStackInSlot(transmutationItemSlot).getItemDamage()-1);
+				craftingInventory.getStackInSlot(transmutationItemSlot).setItemDamage(craftingInventory.getStackInSlot(transmutationItemSlot).getItemDamage() == 0 ? 0 : craftingInventory.getStackInSlot(transmutationItemSlot).getItemDamage());
 				ITransmutationRecipeHandler.ItemInfo transmute = new ITransmutationRecipeHandler.ItemInfo(craftingInventory.getStackInSlot(transmuted).getItem(),
 						craftingInventory.getStackInSlot(transmuted).getItemDamage());
 				ITransmutationRecipeHandler.ItemInfo toTransmute = DartCraft2API.getTransmutationRecipeHandler().getAvailableTransmutation(

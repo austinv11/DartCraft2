@@ -3,6 +3,7 @@ package com.austinv11.dartcraft2.api.implementations;
 import com.austinv11.dartcraft2.api.FailedAPIRequest;
 import com.austinv11.dartcraft2.api.ITransmutationRecipeHandler;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockSapling;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 
@@ -71,6 +72,8 @@ public class TransmutationRecipeHandler implements ITransmutationRecipeHandler {
 	
 	@Override
 	public ItemInfo getAvailableTransmutation(Item toTransmute, int meta) {
+		if (toTransmute instanceof ItemBlock && Block.getBlockFromItem(toTransmute) instanceof BlockSapling)
+			return transmutationMap.get(new ItemInfo(toTransmute, Block.getBlockFromItem(toTransmute).damageDropped(meta))); //Dammit mojang
 		return transmutationMap.get(new ItemInfo(toTransmute, meta));
 	}
 	
