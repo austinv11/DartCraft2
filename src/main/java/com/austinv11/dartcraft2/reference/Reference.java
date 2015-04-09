@@ -9,6 +9,7 @@ public class Reference {
 	public static final String CLIENT_PROXY_CLASS = "com.austinv11.dartcraft2.proxy.ClientProxy";
 	
 	public static enum GUIs {
-		CLIPBOARD
+		CLIPBOARD,
+        FORCE_BELT
 	}
 }

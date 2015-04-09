@@ -14,6 +14,7 @@ item.dartcraft2:clipboard.name=Clipboard
 item.dartcraft2:forceIngot.name=Force Ingot
 item.dartcraft2:forceNugget.name=Force Nugget
 item.dartcraft2:forceStick.name=Force Stick
+item.dartcraft2:forceBelt.name=Force Belt
 
 #Fluid
 fluid.tile.dartcraft2:liquidForce=Liquid Force
@@ -22,6 +23,7 @@ fluid.tile.dartcraft2:liquidForce=Liquid Force
 gui.clipboard.itemDistribution=Distribute Items
 gui.clipboard.smartAssist=Smart Assist
 gui.clipboard.removeItems=Remove Items
+gui.forceBelt.name=Force Belt
 
 #Creative Tabs
 itemGroup.dartcraft2=DartCraft 2
