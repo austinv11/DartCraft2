@@ -57,6 +57,7 @@ public class DartCraft2 {
 			prepareAPI();
 		} catch (FailedAPIRequest failedAPIRequest) {
 			failedAPIRequest.printStackTrace();
+			LOGGER.warn("Did another mod mess with the API?");
 		}
 	}
 	

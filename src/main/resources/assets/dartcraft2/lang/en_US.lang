@@ -17,6 +17,7 @@ item.dartcraft2:forceStick.name=Force Stick
 item.dartcraft2:forceRod.name=Force Rod
 item.dartcraft2:forceBelt.name=Force Belt
 item.dartcraft2:forceMitts.name=Force Mitts
+item.dartcraft2:goldenPowerSource.name=§eGolden Power Source
 
 #Fluid
 fluid.tile.dartcraft2:liquidForce=Liquid Force

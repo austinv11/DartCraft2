@@ -15,6 +15,11 @@ public class Recipes {
 	
 	public static void init() {
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.clipboard), "pip", "pap", "pap", 'p', "plankWood", 'i', "ingotIron", 'a', new ItemStack(Items.paper)));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.forceRod), "  i", " s ", "r  ", 'i', "ingotForce", 's', "stickForce", 'r', Items.redstone));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.forceMitts), "cl ", "cfi", "cll", 'c', "cobblestone", 'l', Items.leather, 'f', "ingotForce", 'i', "ingotIron"));
+		
+		GameRegistry.addSmelting(ModBlocks.forceLog, new ItemStack(ModItems.goldenPowerSource), .15F);
+		GameRegistry.addSmelting(ModBlocks.forceLog2, new ItemStack(ModItems.goldenPowerSource), .15F);
 		
 		ItemStack nuggets = new ItemStack(ModItems.forceNugget);
 		nuggets.stackSize = 9;
@@ -40,8 +45,6 @@ public class Recipes {
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.forceStick, 8), "w ", "w ", 'w', "logForce"));
 		
 		GameRegistry.addRecipe(new RecipeTransmutation());
-		
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.forceRod), "  i", " s ", "r  ", 'i', "ingotForce", 's', "stickForce", 'r', Items.redstone));
 		
 		if (Loader.isModLoaded("Forestry"))
 			loadForestryRecipes();
