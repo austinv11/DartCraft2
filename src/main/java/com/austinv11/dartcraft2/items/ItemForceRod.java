@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 
 public class ItemForceRod extends ItemDC implements ITransmutationItem {
 	
-	public static int MAX_DURABILITY = 10;
+	public static int MAX_DURABILITY = 200;
 	
 	public ItemForceRod() {
 		super();
@@ -46,7 +46,6 @@ public class ItemForceRod extends ItemDC implements ITransmutationItem {
 	@Override
 	public void transmute(ItemStack itemStack, Item fromItem, int fromMeta, Item toItem, int toMeta) {
 		itemStack.setItemDamage(itemStack.getItemDamage()+1);
-		itemStack.damageItem(1, );
 	}
 	
 	@Override
