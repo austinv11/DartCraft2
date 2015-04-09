@@ -5,6 +5,7 @@ import com.austinv11.collectiveframework.minecraft.utils.StructureCreator;
 import com.austinv11.dartcraft2.creativetab.CreativeTabDC;
 import com.austinv11.dartcraft2.init.ModBlocks;
 import com.austinv11.dartcraft2.particles.BreakEffect;
+import com.austinv11.dartcraft2.proxy.ClientProxy;
 import com.austinv11.dartcraft2.reference.Reference;
 import com.austinv11.dartcraft2.tileentities.TileEntityForceSapling;
 import cpw.mods.fml.relauncher.Side;
@@ -385,8 +386,7 @@ public class BlockForceSapling extends BlockBush implements IGrowable, ITileEnti
 	@SideOnly(Side.CLIENT)
 	public boolean addDestroyEffects(World world, int x, int y, int z, int meta, EffectRenderer effectRenderer) {
 		if (world.getBlock(x, y, z) instanceof BlockForceSapling) {
-			for (int i = 0; i < 7; i++)
-				effectRenderer.addEffect(new BreakEffect(world, x+.5+(rng.nextGaussian()/3), y+.5+(rng.nextGaussian()/3), z+.5+(rng.nextGaussian()/3), rng.nextGaussian(), rng.nextGaussian(), rng.nextGaussian()));
+			ClientProxy.addBlockEffects(world, x, y, z, effectRenderer, rng);
 			return true;
 		}
 		return super.addDestroyEffects(world, x, y, z, meta, effectRenderer);

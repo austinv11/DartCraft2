@@ -2,10 +2,13 @@ package com.austinv11.dartcraft2.proxy;
 
 import com.austinv11.dartcraft2.DartCraft2;
 import com.austinv11.dartcraft2.events.handlers.BucketHandler;
+import com.austinv11.dartcraft2.events.handlers.TransmutationHandler;
 import com.austinv11.dartcraft2.init.ModBlocks;
 import com.austinv11.dartcraft2.init.ModItems;
 import com.austinv11.dartcraft2.network.ClipboardButtonPressPacket;
+import com.austinv11.dartcraft2.network.DartCraftEffectPacket;
 import com.austinv11.dartcraft2.tileentities.TileEntityForceSapling;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import net.minecraft.item.ItemStack;
@@ -20,6 +23,8 @@ public class CommonProxy {
 	
 	public void registerEvents() {
 		MinecraftForge.EVENT_BUS.register(new BucketHandler());
+		MinecraftForge.EVENT_BUS.register(new TransmutationHandler());
+		FMLCommonHandler.instance().bus().register(new TransmutationHandler());
 	}
 	
 	public void registerOreDictEntries() {
@@ -56,5 +61,6 @@ public class CommonProxy {
 	
 	public void registerPackets() {
 		DartCraft2.NETWORK.registerMessage(ClipboardButtonPressPacket.ClipboardButtonPressPacketHandler.class, ClipboardButtonPressPacket.class, 0, Side.SERVER);
+		DartCraft2.NETWORK.registerMessage(DartCraftEffectPacket.DartCraftEffectPacketHandler.class, DartCraftEffectPacket.class, 1, Side.CLIENT);
 	}
 }

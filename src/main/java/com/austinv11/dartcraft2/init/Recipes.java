@@ -1,5 +1,6 @@
 package com.austinv11.dartcraft2.init;
 
+import com.austinv11.dartcraft2.recipes.RecipeTransmutation;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 import forestry.api.recipes.RecipeManagers;
@@ -37,6 +38,8 @@ public class Recipes {
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ModBlocks.forcePlanks, 4), "logForce"));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.forceStick, 4), "p ", "p ", 'p', "plankForce"));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.forceStick, 8), "w ", "w ", 'w', "logForce"));
+		
+		GameRegistry.addRecipe(new RecipeTransmutation());
 		
 		if (Loader.isModLoaded("Forestry"))
 			loadForestryRecipes();
