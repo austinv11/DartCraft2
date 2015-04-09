@@ -6,12 +6,12 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 
 public class CreativeTabDC {
-	
-	public static final CreativeTabs DC_TAB = new CreativeTabs(Reference.MOD_ID.toLowerCase()) {
-		
-		@Override
-		public Item getTabIconItem() {
-			return ModItems.forceGem;
-		}
-	};
+
+    public static final CreativeTabs DC_TAB = new CreativeTabs(Reference.MOD_ID.toLowerCase()) {
+
+        @Override
+        public Item getTabIconItem() {
+            return ModItems.forceGem;
+        }
+    };
 }

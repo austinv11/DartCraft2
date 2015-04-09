@@ -14,23 +14,23 @@ import java.util.Random;
 
 @SideOnly(Side.CLIENT)
 public class ClientProxy extends CommonProxy implements IconManager.IIconNeeded {
-	
-	public static IIcon BREAK_EFFECT_TEXTURE;
-	
-	@Override
-	public void registerClient() {
-		IconManager.register(this);
-	}
-	
-	@Override
-	public void registerIcons(IIconRegister register) {
-		BREAK_EFFECT_TEXTURE = register.registerIcon(Reference.MOD_ID.toLowerCase()+":particles/breakEffect");
-	}
-	
-	public static void addBlockEffects(World world, int x, int y, int z, EffectRenderer renderer, Random random) {
-		if (world.blockExists(x, y, z))
-			for (int i = 0; i < 7; i++)
-				renderer.addEffect(new BreakEffect(world, x+.5+(random.nextGaussian()/3), y+.5+(random.nextGaussian()/3), 
-						z+.5+(random.nextGaussian()/3), random.nextGaussian(), random.nextGaussian(), random.nextGaussian()));
-	}
+
+    public static IIcon BREAK_EFFECT_TEXTURE;
+
+    @Override
+    public void registerClient() {
+        IconManager.register(this);
+    }
+
+    @Override
+    public void registerIcons(IIconRegister register) {
+        BREAK_EFFECT_TEXTURE = register.registerIcon(Reference.MOD_ID.toLowerCase() + ":particles/breakEffect");
+    }
+
+    public static void addBlockEffects(World world, int x, int y, int z, EffectRenderer renderer, Random random) {
+        if (world.blockExists(x, y, z))
+            for (int i = 0; i < 7; i++)
+                renderer.addEffect(new BreakEffect(world, x + .5 + (random.nextGaussian() / 3), y + .5 + (random.nextGaussian() / 3),
+                        z + .5 + (random.nextGaussian() / 3), random.nextGaussian(), random.nextGaussian(), random.nextGaussian()));
+    }
 }

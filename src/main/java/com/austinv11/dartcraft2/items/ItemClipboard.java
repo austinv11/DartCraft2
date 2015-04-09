@@ -7,15 +7,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public class ItemClipboard extends ItemDC {
-	
-	public ItemClipboard() {
-		super();
-		this.setUnlocalizedName("clipboard");
-	}
-	
-	@Override
-	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-		player.openGui(DartCraft2.instance, Reference.GUIs.CLIPBOARD.ordinal(), player.getEntityWorld(), (int)player.posX, (int)player.posY, (int)player.posZ);
-		return stack;
-	}
+
+    public ItemClipboard() {
+        super();
+        this.setUnlocalizedName("clipboard");
+    }
+
+    @Override
+    public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
+        player.openGui(DartCraft2.instance, Reference.GUIs.CLIPBOARD.ordinal(), player.getEntityWorld(), (int) player.posX, (int) player.posY, (int) player.posZ);
+        return stack;
+    }
 }

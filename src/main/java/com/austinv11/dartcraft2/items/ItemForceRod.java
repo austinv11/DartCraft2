@@ -9,33 +9,33 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public class ItemForceRod extends ItemDC implements ITransmutationItem {
-	
-	public static int MAX_DURABILITY = 200;
-	
-	public ItemForceRod() {
-		super();
-		this.setUnlocalizedName("forceRod");
-		this.setMaxDamage(MAX_DURABILITY);
-		this.setMaxStackSize(1);
-	}
-	
-	@Override
-	@SideOnly(Side.CLIENT)
-	public boolean isFull3D() {
-		return true;
-	}
-	
-	@Override
-	public boolean canTransmute(World world, int x, int y, int z, ItemStack itemStack, Block toBlock, int toMeta) {
-		itemStack.setItemDamage(itemStack.getItemDamage()+1);
-		return true;
-	}
-	
-	@Override
-	public boolean canTransmute(ItemStack itemStack, Item fromItem, int fromMeta, Item toItem, int toMeta) {
-		itemStack.setItemDamage(itemStack.getItemDamage()+1);
-		return true;
-	}
+
+    public static int MAX_DURABILITY = 200;
+
+    public ItemForceRod() {
+        super();
+        this.setUnlocalizedName("forceRod");
+        this.setMaxDamage(MAX_DURABILITY);
+        this.setMaxStackSize(1);
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public boolean isFull3D() {
+        return true;
+    }
+
+    @Override
+    public boolean canTransmute(World world, int x, int y, int z, ItemStack itemStack, Block toBlock, int toMeta) {
+        itemStack.setItemDamage(itemStack.getItemDamage() + 1);
+        return true;
+    }
+
+    @Override
+    public boolean canTransmute(ItemStack itemStack, Item fromItem, int fromMeta, Item toItem, int toMeta) {
+        itemStack.setItemDamage(itemStack.getItemDamage() + 1);
+        return true;
+    }
 
 //	@Override
 //	public boolean getIsRepairable(ItemStack p_82789_1_, ItemStack p_82789_2_) {

@@ -6,18 +6,18 @@ import com.austinv11.dartcraft2.reference.Reference;
 import net.minecraft.creativetab.CreativeTabs;
 
 public class ItemDC extends ItemBase {
-	
-	public ItemDC() {
-		super();
-	}
-	
-	@Override
-	public CreativeTabs getTab() {
-		return CreativeTabDC.DC_TAB;
-	}
-	
-	@Override
-	public String getModId() {
-		return Reference.MOD_ID;
-	}
+
+    public ItemDC() {
+        super();
+    }
+
+    @Override
+    public CreativeTabs getTab() {
+        return CreativeTabDC.DC_TAB;
+    }
+
+    @Override
+    public String getModId() {
+        return Reference.MOD_ID;
+    }
 }

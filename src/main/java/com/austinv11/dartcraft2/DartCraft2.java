@@ -27,57 +27,57 @@ import net.minecraft.init.Blocks;
 
 @Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.VERSION, dependencies = "after:CollectiveFramework")
 public class DartCraft2 {
-	
-	public static SimpleNetworkWrapper NETWORK;
-	
-	public static Logger LOGGER = new Logger(Reference.MOD_NAME);
-	
-	public static ITransmutationRecipeHandler TRANSMUTATION_HANDLER = new TransmutationRecipeHandler();
-	
-	@Mod.Instance(Reference.MOD_ID)
-	public static DartCraft2 instance;
-	
-	@SidedProxy(clientSide = Reference.CLIENT_PROXY_CLASS, serverSide = Reference.SERVER_PROXY_CLASS)
-	public static CommonProxy proxy;
-	
-	@Mod.EventHandler
-	public void preInit(FMLPreInitializationEvent event) {
-		try {
-			ConfigRegistry.registerConfig(new Config());
-		} catch (ConfigException e) {
-			e.printStackTrace();
-		}
-		NETWORK = NetworkRegistry.INSTANCE.newSimpleChannel("dartcraft2");
-		proxy.registerPackets();
-		GameRegistry.registerWorldGenerator(new WorldGenPowerOre(), 1);
-		ModFluids.init();
-		ModBlocks.init();
-		ModItems.init();
-		try {
-			prepareAPI();
-		} catch (FailedAPIRequest failedAPIRequest) {
-			failedAPIRequest.printStackTrace();
-		}
-	}
-	
-	@Mod.EventHandler
-	public void init(FMLInitializationEvent event) {
-		NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
-		proxy.registerEvents();
-		proxy.registerClient();
-		proxy.registerOreDictEntries();
-		proxy.registerTileEntities();
-		Recipes.init();
-	}
-	
-	@Mod.EventHandler
-	public void postInit(FMLPostInitializationEvent event) {
-		
-	}
-	
-	private void prepareAPI() throws FailedAPIRequest {
-		//Transmutation recipes
-		for (int i = 0; i < 6; i++)
-			TRANSMUTATION_HANDLER.addTransmutation(Blocks.sapling, i, ModBlocks.forceSapling, i);
-	}
+
+    public static SimpleNetworkWrapper NETWORK;
+
+    public static Logger LOGGER = new Logger(Reference.MOD_NAME);
+
+    public static ITransmutationRecipeHandler TRANSMUTATION_HANDLER = new TransmutationRecipeHandler();
+
+    @Mod.Instance(Reference.MOD_ID)
+    public static DartCraft2 instance;
+
+    @SidedProxy(clientSide = Reference.CLIENT_PROXY_CLASS, serverSide = Reference.SERVER_PROXY_CLASS)
+    public static CommonProxy proxy;
+
+    @Mod.EventHandler
+    public void preInit(FMLPreInitializationEvent event) {
+        try {
+            ConfigRegistry.registerConfig(new Config());
+        } catch (ConfigException e) {
+            e.printStackTrace();
+        }
+        NETWORK = NetworkRegistry.INSTANCE.newSimpleChannel("dartcraft2");
+        proxy.registerPackets();
+        GameRegistry.registerWorldGenerator(new WorldGenPowerOre(), 1);
+        ModFluids.init();
+        ModBlocks.init();
+        ModItems.init();
+        try {
+            prepareAPI();
+        } catch (FailedAPIRequest failedAPIRequest) {
+            failedAPIRequest.printStackTrace();
+        }
+    }
+
+    @Mod.EventHandler
+    public void init(FMLInitializationEvent event) {
+        NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
+        proxy.registerEvents();
+        proxy.registerClient();
+        proxy.registerOreDictEntries();
+        proxy.registerTileEntities();
+        Recipes.init();
+    }
+
+    @Mod.EventHandler
+    public void postInit(FMLPostInitializationEvent event) {
+
+    }
+
+    private void prepareAPI() throws FailedAPIRequest {
+        //Transmutation recipes
+        for (int i = 0; i < 6; i++)
+            TRANSMUTATION_HANDLER.addTransmutation(Blocks.sapling, i, ModBlocks.forceSapling, i);
+    }
 }
