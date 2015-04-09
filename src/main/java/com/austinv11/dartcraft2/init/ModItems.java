@@ -18,6 +18,7 @@ public class ModItems {
 	public static final ItemDC forceIngot = new ItemForceIngot();
 	public static final ItemDC forceNugget = new ItemForceNugget();
 	public static final ItemDC forceStick = new ItemForceStick();
+    public static final ItemDC forceRod = new ItemForceRod();
     public static final ItemDC forceBelt = new ItemForceBelt();
 	
 	public static void init() {
@@ -28,7 +29,9 @@ public class ModItems {
 		GameRegistry.registerItem(clipboard, "clipboard");
 		GameRegistry.registerItem(forceIngot, "forceIngot");
 		GameRegistry.registerItem(forceNugget, "forceNugget");
+        GameRegistry.registerItem(forceRod, "forceRod");
 		GameRegistry.registerItem(forceStick, "forceStick");
         GameRegistry.registerItem(forceBelt, "forceBelt");
+
 	}
 }

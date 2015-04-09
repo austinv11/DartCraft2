@@ -3,6 +3,9 @@ package com.austinv11.dartcraft2;
 import com.austinv11.collectiveframework.minecraft.config.ConfigException;
 import com.austinv11.collectiveframework.minecraft.config.ConfigRegistry;
 import com.austinv11.collectiveframework.minecraft.logging.Logger;
+import com.austinv11.dartcraft2.api.FailedAPIRequest;
+import com.austinv11.dartcraft2.api.ITransmutationRecipeHandler;
+import com.austinv11.dartcraft2.api.implementations.TransmutationRecipeHandler;
 import com.austinv11.dartcraft2.client.gui.GuiHandler;
 import com.austinv11.dartcraft2.init.ModBlocks;
 import com.austinv11.dartcraft2.init.ModFluids;
@@ -20,6 +23,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraft.init.Blocks;
 
 @Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.VERSION, dependencies = "after:CollectiveFramework")
 public class DartCraft2 {
@@ -27,6 +31,8 @@ public class DartCraft2 {
 	public static SimpleNetworkWrapper NETWORK;
 	
 	public static Logger LOGGER = new Logger(Reference.MOD_NAME);
+	
+	public static ITransmutationRecipeHandler TRANSMUTATION_HANDLER = new TransmutationRecipeHandler();
 	
 	@Mod.Instance(Reference.MOD_ID)
 	public static DartCraft2 instance;
@@ -47,6 +53,11 @@ public class DartCraft2 {
 		ModFluids.init();
 		ModBlocks.init();
 		ModItems.init();
+		try {
+			prepareAPI();
+		} catch (FailedAPIRequest failedAPIRequest) {
+			failedAPIRequest.printStackTrace();
+		}
 	}
 	
 	@Mod.EventHandler
@@ -62,5 +73,11 @@ public class DartCraft2 {
 	@Mod.EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
 		
+	}
+	
+	private void prepareAPI() throws FailedAPIRequest {
+		//Transmutation recipes
+		for (int i = 0; i < 6; i++)
+			TRANSMUTATION_HANDLER.addTransmutation(Blocks.sapling, i, ModBlocks.forceSapling, i);
 	}
 }

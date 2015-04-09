@@ -14,6 +14,7 @@ item.dartcraft2:clipboard.name=Clipboard
 item.dartcraft2:forceIngot.name=Force Ingot
 item.dartcraft2:forceNugget.name=Force Nugget
 item.dartcraft2:forceStick.name=Force Stick
+item.dartcraft2:forceRod.name=Force Rod
 item.dartcraft2:forceBelt.name=Force Belt
 
 #Fluid
