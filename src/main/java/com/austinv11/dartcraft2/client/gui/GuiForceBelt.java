@@ -9,15 +9,18 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import org.lwjgl.opengl.GL11;
 
-public class GuiForceBelt extends GuiContainer {
+public class GuiForceBelt extends GuiContainer
+{
     private static final ResourceLocation GUI_TEXTURE = new ResourceLocation(Reference.MOD_ID.toLowerCase(), "textures/gui/forceBeltGui.png");
 
-    public GuiForceBelt(EntityPlayer player) {
+    public GuiForceBelt(EntityPlayer player)
+    {
         super(new ContainerForceBelt(player, 176, 137));
     }
 
     @Override
-    protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
+    protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY)
+    {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(GUI_TEXTURE);
         int k = (this.width - this.xSize) / 2;
@@ -27,7 +30,7 @@ public class GuiForceBelt extends GuiContainer {
 
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-        this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.forceBelt.name"), 8, this.ySize - 160, 4210752);
-        this.fontRendererObj.drawString(I18n.format("container.inventory", 0), 8, this.ySize - 123, 4210752);
+        this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.forceBelt.name"), 8, this.ySize-160, 4210752);
+        this.fontRendererObj.drawString(I18n.format("container.inventory", 0), 8, this.ySize-123, 4210752);
     }
 }
