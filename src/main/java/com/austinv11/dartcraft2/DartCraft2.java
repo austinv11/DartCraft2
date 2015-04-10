@@ -81,5 +81,6 @@ public class DartCraft2 {
 		//Transmutation recipes
 		for (int i = 0; i < 6; i++)
 			TRANSMUTATION_HANDLER.addTransmutation(Blocks.sapling, i, ModBlocks.forceSapling, i);
+		TRANSMUTATION_HANDLER.addTransmutation(Blocks.enchanting_table, ModBlocks.infuser);
 	}
 }

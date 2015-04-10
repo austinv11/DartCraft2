@@ -6,6 +6,7 @@ tile.dartcraft2:forceSapling.name=Force Sapling
 tile.dartcraft2:forceLog.name=Force Wood
 tile.dartcraft2:forceLeaves.name=Force Leaves
 tile.dartcraft2:forcePlanks.name=Force Planks
+tile.dartcraft2:infuser.name=Force Infuser
 
 #Items
 item.dartcraft2:forceGem.name=Force Gem

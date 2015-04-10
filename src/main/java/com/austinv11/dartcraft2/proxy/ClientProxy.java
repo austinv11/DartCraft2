@@ -2,8 +2,10 @@ package com.austinv11.dartcraft2.proxy;
 
 import com.austinv11.collectiveframework.minecraft.utils.IconManager;
 import com.austinv11.dartcraft2.client.KeyBindings;
+import com.austinv11.dartcraft2.client.gui.model.ItemRenderInfuser;
 import com.austinv11.dartcraft2.client.gui.model.RenderInfuser;
 import com.austinv11.dartcraft2.events.handlers.KeyInputHandler;
+import com.austinv11.dartcraft2.init.ModBlocks;
 import com.austinv11.dartcraft2.particles.BreakEffect;
 import com.austinv11.dartcraft2.reference.Reference;
 import com.austinv11.dartcraft2.tileentities.TileEntityInfuser;
@@ -13,8 +15,10 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.particle.EffectRenderer;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.item.Item;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import net.minecraftforge.client.MinecraftForgeClient;
 
 import java.util.Random;
 
@@ -27,6 +31,7 @@ public class ClientProxy extends CommonProxy implements IconManager.IIconNeeded 
 	public void registerClient() {
 		IconManager.register(this);
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityInfuser.class, new RenderInfuser());
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(ModBlocks.infuser), new ItemRenderInfuser(new RenderInfuser(), new TileEntityInfuser()));
 	}
 	
 	@Override
