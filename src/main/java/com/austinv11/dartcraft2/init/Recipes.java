@@ -1,6 +1,7 @@
 package com.austinv11.dartcraft2.init;
 
 import com.austinv11.dartcraft2.recipes.RecipeTransmutation;
+import com.austinv11.dartcraft2.reference.Reference;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 import forestry.api.recipes.RecipeManagers;
@@ -8,6 +9,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
@@ -44,6 +46,7 @@ public class Recipes {
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.forceStick, 4), "p ", "p ", 'p', "plankForce"));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.forceStick, 8), "w ", "w ", 'w', "logForce"));
 		
+		RecipeSorter.register(Reference.MOD_ID.toLowerCase()+":transmute", RecipeTransmutation.class, RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
 		GameRegistry.addRecipe(new RecipeTransmutation());
 		
 		if (Loader.isModLoaded("Forestry"))
