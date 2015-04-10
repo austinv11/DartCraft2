@@ -10,4 +10,34 @@ public class Config {
 	
 	@Description(category = "Aura", comment = "The range at which aura can be passively drained from")
 	public static int passiveAuraEmissionRange = 16;
+	
+	@Description(category = "World Gen", comment = "The minimum amount of power ore veins in each chunk")
+	public static int minPowerOreVeins = 3;
+	
+	@Description(category = "World Gen", comment = "The maximum amount of power ore veins in each chunk")
+	public static int maxPowerOreVeins = 10;
+	
+	@Description(category = "World Gen", comment = "The minimum amount of power ore per vein")
+	public static int minPowerOrePerVein = 1;
+	
+	@Description(category = "World Gen", comment = "The maximum amount of power ore per vein")
+	public static int maxPowerOrePerVein = 5;
+	
+	@Description(category = "World Gen", comment = "The lowest y-level power ore can spawn in, in the overworld")
+	public static int minYLevelOverworld = 1;
+	
+	@Description(category = "World Gen", comment = "The highest y-level power ore can spawn in, in the overworld")
+	public static int maxYLevelOverworld = 64;
+	
+	@Description(category = "World Gen", comment = "The lowest y-level power ore can spawn in, in the nether")
+	public static int minYLevelNether = 1;
+	
+	@Description(category = "World Gen", comment = "The highest y-level power ore can spawn in, in the nether")
+	public static int maxYLevelNether = 256;
+	
+	@Description(category = "World Gen", comment = "Whether to spawn overworld power ore")
+	public static boolean spawnOverworldPowerOre = true;
+	
+	@Description(category = "World Gen", comment = "Whether to spawn nether power ore")
+	public static boolean spawnNetherPowerOre = true;
 }

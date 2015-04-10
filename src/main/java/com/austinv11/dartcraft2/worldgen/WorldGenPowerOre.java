@@ -2,6 +2,7 @@ package com.austinv11.dartcraft2.worldgen;
 
 import com.austinv11.collectiveframework.minecraft.utils.WorldGenHelper;
 import com.austinv11.dartcraft2.init.ModBlocks;
+import com.austinv11.dartcraft2.reference.Config;
 import cpw.mods.fml.common.IWorldGenerator;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
@@ -11,9 +12,10 @@ import java.util.Random;
 
 /**
  * Spawns power ore in the overworld and nether.
- * It spawns in the overworld between y levels 1 and 64, nether 1 and 256.
- * It spawns in veins of 1 to 5 ores which spawn anywhere within a 3x3x3 area of the center block.
- * There are 3-10 veins in every chunk.
+ * By default:
+ * -It spawns in the overworld between y levels 1 and 64, nether 1 and 256.
+ * -It spawns in veins of 1 to 5 ores which spawn anywhere within a 3x3x3 area of the center block.
+ * -There are 3-10 veins in every chunk.
  */
 public class WorldGenPowerOre implements IWorldGenerator {
 	
@@ -21,25 +23,26 @@ public class WorldGenPowerOre implements IWorldGenerator {
 	
 	@Override
 	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {
-		if (world.provider.dimensionId == -1 || world.provider.dimensionId == 0) {
+		if ((world.provider.dimensionId == -1 && Config.spawnNetherPowerOre) || (world.provider.dimensionId == 0 && Config.spawnOverworldPowerOre)) {
 			genVein(random, world, chunkX, chunkZ);
 		}
 	}
 	
 	private void genVein(Random rng, World world, int chunkX, int chunkZ) {
-		int numOfVeins = MathHelper.getRandomIntegerInRange(rng, 3, 10);
+		int numOfVeins = MathHelper.getRandomIntegerInRange(rng, Config.minPowerOreVeins, Config.maxPowerOreVeins);
 		outerLoop: for (int i = 0; i < numOfVeins; i++) {
 			int x = (chunkX*16) + MathHelper.getRandomIntegerInRange(rng, 0, 15);
 			int z = (chunkZ*16) + MathHelper.getRandomIntegerInRange(rng, 0, 15);
 			int y;
 			int passes = 0;
 			do {
-				y = MathHelper.getRandomIntegerInRange(rng, 1,  world.provider.dimensionId == 0 ? 64 : 128);
+				y = MathHelper.getRandomIntegerInRange(rng, world.provider.dimensionId == 0 ? Config.minYLevelOverworld : Config.minYLevelNether,
+						world.provider.dimensionId == 0 ? Config.maxYLevelOverworld : Config.maxYLevelNether);
 				if (passes++ > MAX_GEN_PASSES) {
 					continue outerLoop;
 				}
 			} while (world.isAirBlock(x, y, z));
-			int numOfOres = MathHelper.getRandomIntegerInRange(rng, 1, 5);
+			int numOfOres = MathHelper.getRandomIntegerInRange(rng, Config.minPowerOrePerVein, Config.maxPowerOrePerVein);
 			WorldGenHelper.spawnOreBlock(world, x, y, z, world.provider.dimensionId == 0 ? ModBlocks.powerOre : ModBlocks.netherPowerOre);
 			for (int j = 0; j < numOfOres-1; j++) {
 				int newX = MathHelper.getRandomIntegerInRange(rng, x-1, x+1);
