@@ -9,6 +9,7 @@ import com.austinv11.dartcraft2.network.ClipboardButtonPressPacket;
 import com.austinv11.dartcraft2.network.DartCraftEffectPacket;
 import com.austinv11.dartcraft2.network.OpenGuiContainerPacket;
 import com.austinv11.dartcraft2.tileentities.TileEntityForceSapling;
+import com.austinv11.dartcraft2.tileentities.TileEntityInfuser;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
@@ -58,6 +59,7 @@ public class CommonProxy {
 	
 	public void registerTileEntities() {
 		GameRegistry.registerTileEntity(TileEntityForceSapling.class, TileEntityForceSapling.publicName);
+		GameRegistry.registerTileEntity(TileEntityInfuser.class, TileEntityInfuser.publicName);
 	}
 	
 	public void registerPackets() {
