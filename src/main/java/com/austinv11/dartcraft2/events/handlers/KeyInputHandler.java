@@ -11,7 +11,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
-public class KeyInputHandler  {
+public class KeyInputHandler {
 
     private Minecraft mc = Minecraft.getMinecraft();
 

@@ -1,7 +1,6 @@
 package com.austinv11.dartcraft2.container;
 
 import com.austinv11.collectiveframework.minecraft.utils.NBTHelper;
-import com.austinv11.dartcraft2.DartCraft2;
 import com.austinv11.dartcraft2.init.ModItems;
 import com.austinv11.dartcraft2.inventory.SlotDCOnly;
 import net.minecraft.entity.player.EntityPlayer;
