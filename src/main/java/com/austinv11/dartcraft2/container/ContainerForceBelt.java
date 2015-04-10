@@ -1,6 +1,8 @@
 package com.austinv11.dartcraft2.container;
 
 import com.austinv11.collectiveframework.minecraft.utils.NBTHelper;
+import com.austinv11.dartcraft2.DartCraft2;
+import com.austinv11.dartcraft2.init.ModItems;
 import com.austinv11.dartcraft2.inventory.SlotDCOnly;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
@@ -12,6 +14,7 @@ import net.minecraft.util.StatCollector;
 
 public class ContainerForceBelt extends Container {
     private EntityPlayer player;
+    private ItemStack forceBelt;
     private InventoryBasic inv = new InventoryBasic(StatCollector.translateToLocal("gui.forceBelt.name"), false, 35);
     public boolean isClosed;
 
@@ -28,10 +31,18 @@ public class ContainerForceBelt extends Container {
         this.player = player;
         layout(xSize, ySize);
 
-        ItemStack forceBelt = player.getHeldItem();
-        for (int i = 0; i < 9; i++)
-            if (NBTHelper.hasTag(forceBelt, "slot" + i))
+        if (player.getHeldItem() != null && player.getHeldItem().getItem() == ModItems.forceBelt) {
+            this.forceBelt = player.getHeldItem();
+        } else {
+            this.forceBelt = getBeltInBar(player);
+        }
+
+        for (int i = 0; i < 9; i++) {
+            if (NBTHelper.hasTag(forceBelt, "slot" + i)) {
                 inv.setInventorySlotContents(i, ItemStack.loadItemStackFromNBT(NBTHelper.getCompoundTag(forceBelt, "slot" + i)));
+            }
+        }
+
         isClosed = false;
     }
 
@@ -63,14 +74,29 @@ public class ContainerForceBelt extends Container {
 
     @Override
     public void onContainerClosed(EntityPlayer player) {
-        if (player != null && player.getHeldItem() != null) {
-            player.getHeldItem().stackTagCompound = null;
+        if (player.getHeldItem() != null && player.getHeldItem().getItem() == ModItems.forceBelt) {
+            this.forceBelt = player.getHeldItem();
+        } else {
+            this.forceBelt = getBeltInBar(player);
+        }
+
+        if (forceBelt != null) {
+            forceBelt.stackTagCompound = null;
             for (int i = 0; i < inv.getSizeInventory(); i++)
                 if (inv.getStackInSlot(i) != null) {
-                    NBTHelper.setCompoundTag(player.getHeldItem(), "slot" + i, inv.getStackInSlot(i).writeToNBT(new NBTTagCompound()));
+                    NBTHelper.setCompoundTag(forceBelt, "slot" + i, inv.getStackInSlot(i).writeToNBT(new NBTTagCompound()));
                 }
         }
         isClosed = true;
         super.onContainerClosed(player);
+    }
+
+    private ItemStack getBeltInBar(EntityPlayer player) {
+        for (int i = 0; i < 9; i++) {
+            if (player.inventory.getStackInSlot(i).getItem() == ModItems.forceBelt) {
+                return player.inventory.getStackInSlot(i);
+            }
+        }
+        return null;
     }
 }

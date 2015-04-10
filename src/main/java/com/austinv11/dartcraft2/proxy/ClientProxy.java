@@ -1,8 +1,11 @@
 package com.austinv11.dartcraft2.proxy;
 
 import com.austinv11.collectiveframework.minecraft.utils.IconManager;
+import com.austinv11.dartcraft2.client.KeyBindings;
+import com.austinv11.dartcraft2.events.handlers.KeyInputHandler;
 import com.austinv11.dartcraft2.particles.BreakEffect;
 import com.austinv11.dartcraft2.reference.Reference;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.particle.EffectRenderer;
@@ -33,4 +36,10 @@ public class ClientProxy extends CommonProxy implements IconManager.IIconNeeded 
 				renderer.addEffect(new BreakEffect(world, x+.5+(random.nextGaussian()/3), y+.5+(random.nextGaussian()/3), 
 						z+.5+(random.nextGaussian()/3), random.nextGaussian(), random.nextGaussian(), random.nextGaussian()));
 	}
+
+    @Override
+    public void handleKeyBindings() {
+        KeyBindings.init();
+        FMLCommonHandler.instance().bus().register(new KeyInputHandler());
+    }
 }

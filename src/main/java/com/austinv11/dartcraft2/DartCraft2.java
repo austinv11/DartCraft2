@@ -68,6 +68,7 @@ public class DartCraft2 {
 		proxy.registerClient();
 		proxy.registerOreDictEntries();
 		proxy.registerTileEntities();
+        proxy.handleKeyBindings();
 		Recipes.init();
 	}
 	

@@ -30,3 +30,7 @@ gui.forceBelt.name=Force Belt
 
 #Creative Tabs
 itemGroup.dartcraft2=DartCraft 2
+
+# Keys
+key.forceBelt=Open Forcebelt
+key.categories.dartcraft2=DartCraft 2

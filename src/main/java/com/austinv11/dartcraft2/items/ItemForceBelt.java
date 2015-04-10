@@ -10,6 +10,7 @@ public class ItemForceBelt extends ItemDC {
     public ItemForceBelt() {
         super();
         this.setUnlocalizedName("forceBelt");
+        this.setMaxDamage(1);
     }
 
     @Override
