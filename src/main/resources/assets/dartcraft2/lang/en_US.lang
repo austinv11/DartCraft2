@@ -15,10 +15,11 @@ item.dartcraft2:clipboard.name=Clipboard
 item.dartcraft2:forceIngot.name=Force Ingot
 item.dartcraft2:forceNugget.name=Force Nugget
 item.dartcraft2:forceStick.name=Force Stick
-item.dartcraft2:forceRod.name=Force Rod
+item.dartcraft2:forceRod.name=§eForce Rod
 item.dartcraft2:forceBelt.name=Force Belt
 item.dartcraft2:forceMitts.name=Force Mitts
 item.dartcraft2:goldenPowerSource.name=§eGolden Power Source
+item.dartcraft2:upgradeTome.name=§eUpgrade Tome
 
 #Fluid
 fluid.tile.dartcraft2:liquidForce=Liquid Force

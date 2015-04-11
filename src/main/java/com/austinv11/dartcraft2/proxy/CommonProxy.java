@@ -8,6 +8,7 @@ import com.austinv11.dartcraft2.init.ModItems;
 import com.austinv11.dartcraft2.network.ClipboardButtonPressPacket;
 import com.austinv11.dartcraft2.network.DartCraftEffectPacket;
 import com.austinv11.dartcraft2.network.OpenGuiContainerPacket;
+import com.austinv11.dartcraft2.network.TransmutePacket;
 import com.austinv11.dartcraft2.tileentities.TileEntityForceSapling;
 import com.austinv11.dartcraft2.tileentities.TileEntityInfuser;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -66,9 +67,14 @@ public class CommonProxy {
 		DartCraft2.NETWORK.registerMessage(ClipboardButtonPressPacket.ClipboardButtonPressPacketHandler.class, ClipboardButtonPressPacket.class, 0, Side.SERVER);
 		DartCraft2.NETWORK.registerMessage(DartCraftEffectPacket.DartCraftEffectPacketHandler.class, DartCraftEffectPacket.class, 1, Side.CLIENT);
         DartCraft2.NETWORK.registerMessage(OpenGuiContainerPacket.OpenGuiContainerPacketHandler.class, OpenGuiContainerPacket.class, 2, Side.SERVER);
+		DartCraft2.NETWORK.registerMessage(TransmutePacket.TransmutePacketHandler.class, TransmutePacket.class, 3, Side.SERVER);
 	}
 
     public void handleKeyBindings() {
         // NO-OP
     }
+	
+	public Side getSide() {
+		return Side.SERVER;
+	}
 }

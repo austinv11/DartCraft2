@@ -24,6 +24,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 
 @Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.VERSION, dependencies = "after:CollectiveFramework")
 public class DartCraft2 {
@@ -82,5 +83,6 @@ public class DartCraft2 {
 		for (int i = 0; i < 6; i++)
 			TRANSMUTATION_HANDLER.addTransmutation(Blocks.sapling, i, ModBlocks.forceSapling, i);
 		TRANSMUTATION_HANDLER.addTransmutation(Blocks.enchanting_table, ModBlocks.infuser);
+		TRANSMUTATION_HANDLER.addTransmutation(Items.book, ModItems.upgradeTome);
 	}
 }
