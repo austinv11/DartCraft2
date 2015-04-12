@@ -19,6 +19,7 @@ item.dartcraft2:forceRod.name=§eForce Rod
 item.dartcraft2:forceBelt.name=Force Belt
 item.dartcraft2:forceMitts.name=Force Mitts
 item.dartcraft2:goldenPowerSource.name=§eGolden Power Source
+item.dartcraft2:forcePack.name=Force Pack
 item.dartcraft2:upgradeTome.name=§eUpgrade Tome
 
 #Fluid
@@ -29,7 +30,7 @@ gui.clipboard.itemDistribution=Distribute Items
 gui.clipboard.smartAssist=Smart Assist
 gui.clipboard.removeItems=Remove Items
 gui.forceBelt.name=Force Belt
-
+gui.forcePack.name=Force Pack
 
 #Creative Tabs
 itemGroup.dartcraft2=DartCraft 2

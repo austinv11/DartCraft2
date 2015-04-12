@@ -23,4 +23,15 @@ public class DartCraftUtils {
         }
         return null;
     }
+
+
+    /**
+     * Used to determine the correct Y size of the gui being used for the force pack.
+     * This is needed because there are 5 different GUIs used depending on the tier (stored as metadata) of the force pack.
+     * It works by adding the metadata (the tier or amount of extra rows) times 18 (the size of a slot) to 141 (the size of the original GUI texture)
+     */
+    // Returns the y size of the force pack gui texture based on metadata. 141 is the size for the metadta 0 texture. Slots are 18 pixels tall.
+    public static int getForcePackGuiYSize(int meta) {
+        return 141 + (meta * 18);
+    }
 }

@@ -15,7 +15,6 @@ public class ContainerForceBelt extends Container {
     private EntityPlayer player;
     private ItemStack forceBelt;
     private InventoryBasic inv = new InventoryBasic(StatCollector.translateToLocal("gui.forceBelt.name"), false, 35);
-    public boolean isClosed;
     private Slot[] slots = new Slot[8];
 
     public ContainerForceBelt(EntityPlayer player, int xSize, int ySize) {
@@ -34,8 +33,6 @@ public class ContainerForceBelt extends Container {
                 inv.setInventorySlotContents(i, ItemStack.loadItemStackFromNBT(NBTHelper.getCompoundTag(forceBelt, "slot" + i)));
             }
         }
-
-        isClosed = false;
     }
 
     protected void layout(int xSize, int ySize) {
@@ -70,7 +67,6 @@ public class ContainerForceBelt extends Container {
                 }
             }
         }
-        isClosed = true;
         super.onContainerClosed(player);
     }
 

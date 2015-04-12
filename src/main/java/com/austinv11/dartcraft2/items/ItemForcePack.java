@@ -15,7 +15,16 @@ public class ItemForcePack extends ItemDC{
 
     @Override
     public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-        player.openGui(DartCraft2.instance, Reference.GUIs.FORCE_PACK.ordinal(), player.getEntityWorld(), (int) player.posX, (int) player.posY, (int) player.posZ);
+        if (player.isSneaking()) {
+            if (stack.getItemDamage() == 4) {
+                stack.setItemDamage(0);
+            } else {
+                stack.setItemDamage(stack.getItemDamage() + 1);
+            }
+        } else {
+            player.openGui(DartCraft2.instance, Reference.GUIs.FORCE_PACK.ordinal(), player.getEntityWorld(), (int) player.posX, (int) player.posY, (int) player.posZ);
+        }
+
         return stack;
     }
 }

@@ -22,6 +22,7 @@ public class ModItems {
     public static final ItemDC forceBelt = new ItemForceBelt();
 	public static final Item forceMitts = new ItemForceMitts();
 	public static final ItemGoldenPowerSource goldenPowerSource = new ItemGoldenPowerSource();
+    public static final ItemDC forcePack = new ItemForcePack();
 	public static final ItemDC upgradeTome = new ItemUpgradeTome();
 	
 	public static void init() {
@@ -38,6 +39,7 @@ public class ModItems {
 		GameRegistry.registerItem(forceMitts, "forceMitts");
 		GameRegistry.registerItem(goldenPowerSource, "goldenPowerSource");
 		GameRegistry.registerFuelHandler(goldenPowerSource);
+        GameRegistry.registerItem(forcePack, "forcePack");
 		GameRegistry.registerItem(upgradeTome, "upgradeTome");
 	}
 }
