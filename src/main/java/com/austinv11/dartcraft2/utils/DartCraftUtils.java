@@ -1,8 +1,11 @@
 package com.austinv11.dartcraft2.utils;
 
+import com.austinv11.collectiveframework.minecraft.utils.NBTHelper;
 import com.austinv11.dartcraft2.init.ModItems;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 
 public class DartCraftUtils {
 
@@ -24,14 +27,40 @@ public class DartCraftUtils {
         return null;
     }
 
-
     /**
      * Used to determine the correct Y size of the gui being used for the force pack.
      * This is needed because there are 5 different GUIs used depending on the tier (stored as metadata) of the force pack.
      * It works by adding the metadata (the tier or amount of extra rows) times 18 (the size of a slot) to 141 (the size of the original GUI texture)
      */
-    // Returns the y size of the force pack gui texture based on metadata. 141 is the size for the metadta 0 texture. Slots are 18 pixels tall.
     public static int getForcePackGuiYSize(int meta) {
         return 141 + (meta * 18);
+    }
+
+    /**
+     * Reads the passed Itemstack's nbt and sets the slots in the passed IInventory accordingly.
+     * The size of the passed IInventory must be set correctly for this to work properly.
+     */
+    public static void readItemInventoryFromNBT(IInventory inv, ItemStack stack) {
+        if (stack != null) {
+            for (int i = 0; i < inv.getSizeInventory(); i++) {
+                if (NBTHelper.hasTag(stack, "slot" + i)) {
+                    inv.setInventorySlotContents(i, ItemStack.loadItemStackFromNBT(NBTHelper.getCompoundTag(stack, "slot" + i)));
+                }
+            }
+        }
+    }
+
+    /**
+     * Writes the passed IInventory's slot contents to the passed Itemstack's NBT.
+     */
+    public static void writeItemInventoryToNBT(IInventory inv, ItemStack stack) {
+        if (stack != null) {
+            stack.stackTagCompound = null;
+            for (int i = 0; i < inv.getSizeInventory(); i++) {
+                if (inv.getStackInSlot(i) != null) {
+                    NBTHelper.setCompoundTag(stack, "slot" + i, inv.getStackInSlot(i).writeToNBT(new NBTTagCompound()));
+                }
+            }
+        }
     }
 }

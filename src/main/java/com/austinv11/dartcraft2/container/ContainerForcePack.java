@@ -1,13 +1,11 @@
 package com.austinv11.dartcraft2.container;
 
-import com.austinv11.collectiveframework.minecraft.utils.NBTHelper;
-import com.austinv11.dartcraft2.DartCraft2;
+import com.austinv11.dartcraft2.utils.DartCraftUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.StatCollector;
 
 public class ContainerForcePack extends Container {
@@ -26,11 +24,7 @@ public class ContainerForcePack extends Container {
         this.numCols = 9;
         layout(xSize, ySize);
 
-        for (int i = 0; i < inv.getSizeInventory(); i++) {
-            if (NBTHelper.hasTag(player.getHeldItem(), "slot" + i)) {
-                inv.setInventorySlotContents(i, ItemStack.loadItemStackFromNBT(NBTHelper.getCompoundTag(player.getHeldItem(), "slot" + i)));
-            }
-        }
+        DartCraftUtils.readItemInventoryFromNBT(inv, player.getHeldItem());
     }
 
     protected void layout(int xSize, int ySize) {
@@ -55,14 +49,7 @@ public class ContainerForcePack extends Container {
 
     @Override
     public void onContainerClosed(EntityPlayer player) {
-        if (player.getHeldItem() != null) {
-            player.getHeldItem().stackTagCompound = null;
-            for (int i = 0; i < inv.getSizeInventory(); i++) {
-                if (inv.getStackInSlot(i) != null) {
-                    NBTHelper.setCompoundTag(player.getHeldItem(), "slot" + i, inv.getStackInSlot(i).writeToNBT(new NBTTagCompound()));
-                }
-            }
-        }
+        DartCraftUtils.writeItemInventoryToNBT(inv, player.getHeldItem());
         super.onContainerClosed(player);
     }
 
@@ -81,13 +68,11 @@ public class ContainerForcePack extends Container {
             ItemStack itemstack1 = slot.getStack();
             itemstack = itemstack1.copy();
 
-            if (i < getInventorySize(player.getHeldItem().getItemDamage())) {
-                if (!this.mergeItemStack(itemstack1, getInventorySize(player.getHeldItem().getItemDamage()), player.inventory.getSizeInventory(), true)) {
-                    DartCraft2.LOGGER.info("first if");
+            if (i < inv.getSizeInventory()) {
+                if (!this.mergeItemStack(itemstack1, inv.getSizeInventory(), 36 + inv.getSizeInventory(), true)) {
                     return null;
                 }
-            } else if (!this.mergeItemStack(itemstack1, 0, getInventorySize(player.getHeldItem().getItemDamage()), false)) {
-                DartCraft2.LOGGER.info("second if");
+            } else if (!this.mergeItemStack(itemstack1, 0, inv.getSizeInventory(), false)) {
                 return null;
             }
 

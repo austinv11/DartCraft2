@@ -1,6 +1,5 @@
 package com.austinv11.dartcraft2.container;
 
-import com.austinv11.collectiveframework.minecraft.utils.NBTHelper;
 import com.austinv11.dartcraft2.inventory.SlotDCOnly;
 import com.austinv11.dartcraft2.utils.DartCraftUtils;
 import net.minecraft.entity.player.EntityPlayer;
@@ -8,36 +7,25 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.StatCollector;
 
 public class ContainerForceBelt extends Container {
     private EntityPlayer player;
     private ItemStack forceBelt;
-    private InventoryBasic inv = new InventoryBasic(StatCollector.translateToLocal("gui.forceBelt.name"), false, 35);
+    private InventoryBasic inv = new InventoryBasic(StatCollector.translateToLocal("gui.forceBelt.name"), false, 9);
     private Slot[] slots = new Slot[8];
 
     public ContainerForceBelt(EntityPlayer player, int xSize, int ySize) {
         this.player = player;
-
-        for (int i = 0; i < 8; i++) {
-            slots[i] = new SlotDCOnly(inv, i, 17 + (i * 18), 17);
-        }
-
         layout(xSize, ySize);
-
         this.forceBelt = DartCraftUtils.getCorrectForceBelt(player);
-
-        for (int i = 0; i < 9; i++) {
-            if (NBTHelper.hasTag(forceBelt, "slot" + i)) {
-                inv.setInventorySlotContents(i, ItemStack.loadItemStackFromNBT(NBTHelper.getCompoundTag(forceBelt, "slot" + i)));
-            }
-        }
+        DartCraftUtils.readItemInventoryFromNBT(inv, forceBelt);
     }
 
     protected void layout(int xSize, int ySize) {
         for (int i = 0; i < 8; i++) {
-            addSlotToContainer(slots[i]);
+            slots[i] = new SlotDCOnly(inv, i, 17 + (i * 18), 17);
+            this.addSlotToContainer(slots[i]);
         }
 
         int leftCol = (xSize - 162) / 2 + 1;
@@ -59,14 +47,7 @@ public class ContainerForceBelt extends Container {
     @Override
     public void onContainerClosed(EntityPlayer player) {
         forceBelt = DartCraftUtils.getCorrectForceBelt(player);
-        if (forceBelt != null) {
-            forceBelt.stackTagCompound = null;
-            for (int i = 0; i < inv.getSizeInventory(); i++) {
-                if (inv.getStackInSlot(i) != null) {
-                    NBTHelper.setCompoundTag(forceBelt, "slot" + i, inv.getStackInSlot(i).writeToNBT(new NBTTagCompound()));
-                }
-            }
-        }
+        DartCraftUtils.writeItemInventoryToNBT(inv, forceBelt);
         super.onContainerClosed(player);
     }
 
@@ -84,13 +65,13 @@ public class ContainerForceBelt extends Container {
             // Copy that stack to our return itemstack.
             itemstack = itemstack1.copy();
 
-            if (i < 9) // If the slot being transferred from is less than 9, then the item is being transferred from the belt to the player inv.
+            if (i < inv.getSizeInventory()) // If the slot being transferred from is in the force belt inventory.
             {
-                if (!this.mergeItemStack(itemstack1, 9, this.inv.getSizeInventory(), true)) // If the itemstack can't merge with any stacks in the player's
-                {                                                                           // main inv.
+                if (!this.mergeItemStack(itemstack1, inv.getSizeInventory(), 36 + inv.getSizeInventory(), true)) // Tries to merge itemstack with any in the player's main inv. (9-44) 36 is the player's main inv size (excludes armor slots)
+                {
                     return null;
                 }
-            } else if (!this.mergeItemStack(itemstack1, 0, 9, false)) // If the itemstack can't merge with any stacks in the force belt container, return.
+            } else if (!this.mergeItemStack(itemstack1, 0, inv.getSizeInventory(), false)) // If the itemstack can't merge with any stacks in the force belt container, return.
             {                                                       // Implies that the stack being transferred is from a slot in the player's main inv
                 return null;
             }
