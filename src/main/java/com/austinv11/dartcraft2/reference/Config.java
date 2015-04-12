@@ -40,4 +40,25 @@ public class Config {
 	
 	@Description(category = "World Gen", comment = "Whether to spawn nether power ore")
 	public static boolean spawnNetherPowerOre = true;
+	
+	@Description(category = "Infusion", comment = "Experience required for tier 1")
+	public static int experienceForTier1 = 1;
+	
+	@Description(category = "Infusion", comment = "Experience required for tier 2")
+	public static int experienceForTier2 = 1;
+	
+	@Description(category = "Infusion", comment = "Experience required for tier 3")
+	public static int experienceForTier3 = 1;
+	
+	@Description(category = "Infusion", comment = "Experience required for tier 4")
+	public static int experienceForTier4 = 1;
+	
+	@Description(category = "Infusion", comment = "Experience required for tier 5")
+	public static int experienceForTier5 = 1;
+	
+	@Description(category = "Infusion", comment = "Experience required for tier 6")
+	public static int experienceForTier6 = 1;
+	
+	@Description(category = "Infusion", comment = "Experience required for tier 7")
+	public static int experienceForTier7 = 1;
 }

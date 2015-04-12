@@ -1,4 +1,4 @@
-package com.austinv11.dartcraft2.client.gui.model;
+package com.austinv11.dartcraft2.client.model;
 
 import com.austinv11.dartcraft2.reference.Reference;
 import com.austinv11.dartcraft2.tileentities.TileEntityInfuser;

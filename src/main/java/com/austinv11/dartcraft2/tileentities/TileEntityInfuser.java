@@ -58,6 +58,14 @@ public class TileEntityInfuser extends TileEntityInventory implements IFluidHand
 		super.updateEntity();
 		if (dummyTable != null)
 			dummyTable.updateEntity();
+		if (getStackInSlot(0) != null) {
+			if (getStackInSlot(0).getItem() == ModItems.upgradeTome) {
+				if (!NBTHelper.hasTag(getStackInSlot(0), "tier")) {
+					NBTHelper.setInteger(getStackInSlot(0), "tier", 0);
+					NBTHelper.setInteger(getStackInSlot(0), "xp", 0);
+				}
+			}
+		}
 		if (getStackInSlot(1) != null) {
 			if (getStackInSlot(1).getItem() == ModItems.liquidForceBucket) {
 				if (liquidForceTank.fill(new FluidStack(ModFluids.liquidForce, 1000), false) == 1000) {
@@ -93,8 +101,9 @@ public class TileEntityInfuser extends TileEntityInventory implements IFluidHand
 	
 	public int getTier() {
 		if (getStackInSlot(0) != null)
-			return NBTHelper.getInt(getStackInSlot(0), "tier");
-		return 0;
+			if (getStackInSlot(0).getItem() == ModItems.upgradeTome)
+				return NBTHelper.getInt(getStackInSlot(0), "tier");
+		return -1;
 	}
 	
 	@Override

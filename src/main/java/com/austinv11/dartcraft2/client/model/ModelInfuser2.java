@@ -1,4 +1,4 @@
-package com.austinv11.dartcraft2.client.gui.model;
+package com.austinv11.dartcraft2.client.model;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;

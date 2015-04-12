@@ -3,6 +3,7 @@ package com.austinv11.dartcraft2.container;
 import com.austinv11.collectiveframework.minecraft.inventory.ExclusiveSlot;
 import com.austinv11.dartcraft2.DartCraft2;
 import com.austinv11.dartcraft2.init.ModItems;
+import com.austinv11.dartcraft2.inventory.SlotTierLocked;
 import com.austinv11.dartcraft2.tileentities.TileEntityInfuser;
 import com.google.common.collect.ImmutableSet;
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,32 +21,22 @@ public class ContainerInfuser extends Container {
 	private TileEntityInfuser infuser;
 	private EntityPlayer player;
 	
-	private Slot slot0;
-	private Slot slot1;
-	private Slot slot2;
-	private Slot slot3;
-	private Slot slot4;
-	private Slot slot5;
-	private Slot slot6;
-	private Slot slot7;
-	private Slot slot8;
-	private Slot slot9;
-	private Slot slot10;
+	private Slot[] slots = new Slot[11];
 	
 	public ContainerInfuser(TileEntityInfuser infuser, EntityPlayer player, int xSize, int ySize) {
 		this.infuser = infuser;
 		this.player = player;
-		slot0 = new ExclusiveSlot(infuser, 0, 12, -10).setExclusive(ImmutableSet.of((Item) ModItems.upgradeTome)).setWhitelist(true);
-		slot1 = new ExclusiveSlot(infuser, 1, 12, 11).setExclusive(getSetForSlot1()).setWhitelist(true);
-		slot2 = new ExclusiveSlot(infuser, 2, 80, -3).setExclusive(DartCraft2.UPGRADE_REGISTRY.getRegisteredItems()).setWhitelist(true);
-		slot3 = new ExclusiveSlot(infuser, 3, 106, 7).setExclusive(DartCraft2.UPGRADE_REGISTRY.getRegisteredItems()).setWhitelist(true);
-		slot4 = new ExclusiveSlot(infuser, 4, 116, 33).setExclusive(DartCraft2.UPGRADE_REGISTRY.getRegisteredItems()).setWhitelist(true);
-		slot5 = new ExclusiveSlot(infuser, 5, 106, 59).setExclusive(DartCraft2.UPGRADE_REGISTRY.getRegisteredItems()).setWhitelist(true);
-		slot6 = new ExclusiveSlot(infuser, 6, 80, 69).setExclusive(DartCraft2.UPGRADE_REGISTRY.getRegisteredItems()).setWhitelist(true);
-		slot7 = new ExclusiveSlot(infuser, 7, 54, 59).setExclusive(DartCraft2.UPGRADE_REGISTRY.getRegisteredItems()).setWhitelist(true);
-		slot8 = new ExclusiveSlot(infuser, 8, 44, 33).setExclusive(DartCraft2.UPGRADE_REGISTRY.getRegisteredItems()).setWhitelist(true);
-		slot9 = new ExclusiveSlot(infuser, 9, 54, 7).setExclusive(DartCraft2.UPGRADE_REGISTRY.getRegisteredItems()).setWhitelist(true);
-		slot10 = new ExclusiveSlot(infuser, 10, 80, 33).setExclusive(DartCraft2.UPGRADE_REGISTRY.getTools()).setWhitelist(true);
+		slots[0] = new ExclusiveSlot(infuser, 0, 12, -10).setExclusive(ImmutableSet.of((Item) ModItems.upgradeTome)).setWhitelist(true);
+		slots[1] = new ExclusiveSlot(infuser, 1, 12, 11).setExclusive(getSetForSlot1()).setWhitelist(true);
+		slots[2] = new SlotTierLocked(infuser, 2, 80, -3).setTier(0);
+		slots[3] = new SlotTierLocked(infuser, 3, 106, 7).setTier(1);
+		slots[4] = new SlotTierLocked(infuser, 4, 116, 33).setTier(2);
+		slots[5] = new SlotTierLocked(infuser, 5, 106, 59).setTier(3);
+		slots[6] = new SlotTierLocked(infuser, 6, 80, 69).setTier(4);
+		slots[7] = new SlotTierLocked(infuser, 7, 54, 59).setTier(5);
+		slots[8] = new SlotTierLocked(infuser, 8, 44, 33).setTier(6);
+		slots[9] = new SlotTierLocked(infuser, 9, 54, 7).setTier(7);
+		slots[10] = new ExclusiveSlot(infuser, 10, 80, 33).setExclusive(DartCraft2.UPGRADE_REGISTRY.getTools()).setWhitelist(true);
 		layout(xSize, ySize);
 	}
 	
@@ -84,17 +75,8 @@ public class ContainerInfuser extends Container {
 	}
 	
 	protected void layout(int xSize, int ySize) {
-		this.addSlotToContainer(slot0);
-		this.addSlotToContainer(slot1);
-		this.addSlotToContainer(slot2);
-		this.addSlotToContainer(slot3);
-		this.addSlotToContainer(slot4);
-		this.addSlotToContainer(slot5);
-		this.addSlotToContainer(slot6);
-		this.addSlotToContainer(slot7);
-		this.addSlotToContainer(slot8);
-		this.addSlotToContainer(slot9);
-		this.addSlotToContainer(slot10);
+		for (Slot s : slots)
+			addSlotToContainer(s);
 		
 		int leftCol = (xSize - 162) / 2 + 1;
 		for (int playerInvRow = 0; playerInvRow < 3; playerInvRow++) {

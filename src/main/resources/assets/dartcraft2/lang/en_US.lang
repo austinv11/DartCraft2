@@ -1,7 +1,7 @@
 #Blocks
 tile.dartcraft2:powerOre.name=Power Ore
 tile.dartcraft2:netherPowerOre.name=Nether Power Ore
-tile.dartcraft2:liquidForce.name=Liquid Force
+tile.dartcraft2:liquidForce.name=§eLiquid Force
 tile.dartcraft2:forceSapling.name=Force Sapling
 tile.dartcraft2:forceLog.name=Force Wood
 tile.dartcraft2:forceLeaves.name=Force Leaves
@@ -9,8 +9,8 @@ tile.dartcraft2:forcePlanks.name=Force Planks
 tile.dartcraft2:infuser.name=Force Infuser
 
 #Items
-item.dartcraft2:forceGem.name=Force Gem
-item.dartcraft2:liquidForceBucket.name=Liquid Force Bucket
+item.dartcraft2:forceGem.name=§eForce Gem
+item.dartcraft2:liquidForceBucket.name=§eLiquid Force Bucket
 item.dartcraft2:clipboard.name=Clipboard
 item.dartcraft2:forceIngot.name=Force Ingot
 item.dartcraft2:forceNugget.name=Force Nugget
@@ -22,8 +22,14 @@ item.dartcraft2:goldenPowerSource.name=§eGolden Power Source
 item.dartcraft2:forcePack.name=Force Pack
 item.dartcraft2:upgradeTome.name=§eUpgrade Tome
 
+#Item Lore
+lore.shiftMessage=Hold shift for more information
+lore.upgradeTome.tier=Current Tier
+lore.upgradeTome.xp=Stored Experience
+lore.upgradeTome.xpToNextTier=Experience To Next Tier
+
 #Fluid
-fluid.tile.dartcraft2:liquidForce=Liquid Force
+fluid.tile.dartcraft2:liquidForce=§eLiquid Force
 
 #Guis
 gui.clipboard.itemDistribution=Distribute Items
@@ -31,9 +37,11 @@ gui.clipboard.smartAssist=Smart Assist
 gui.clipboard.removeItems=Remove Items
 gui.forceBelt.name=Force Belt
 gui.forcePack.name=Force Pack
+gui.infuser.help=Help
+gui.infuser.start=Start Infusion
 
 #Creative Tabs
-itemGroup.dartcraft2=DartCraft 2
+itemGroup.dartcraft2=§eDartCraft 2
 
 # Keys
 key.forceBelt=Open Forcebelt

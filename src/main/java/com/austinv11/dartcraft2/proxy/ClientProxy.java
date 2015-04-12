@@ -2,8 +2,8 @@ package com.austinv11.dartcraft2.proxy;
 
 import com.austinv11.collectiveframework.minecraft.utils.IconManager;
 import com.austinv11.dartcraft2.client.KeyBindings;
-import com.austinv11.dartcraft2.client.gui.model.ItemRenderInfuser;
-import com.austinv11.dartcraft2.client.gui.model.RenderInfuser;
+import com.austinv11.dartcraft2.client.model.ItemRenderInfuser;
+import com.austinv11.dartcraft2.client.model.RenderInfuser;
 import com.austinv11.dartcraft2.events.handlers.KeyInputHandler;
 import com.austinv11.dartcraft2.init.ModBlocks;
 import com.austinv11.dartcraft2.particles.BreakEffect;
