@@ -1,5 +1,6 @@
 package com.austinv11.dartcraft2.utils;
 
+import baubles.api.BaublesApi;
 import com.austinv11.collectiveframework.minecraft.utils.NBTHelper;
 import com.austinv11.dartcraft2.init.ModItems;
 import net.minecraft.entity.player.EntityPlayer;
@@ -17,12 +18,8 @@ public class DartCraftUtils {
     public static ItemStack getCorrectForceBelt(EntityPlayer player) {
         if (player.getHeldItem() != null && player.getHeldItem().getItem() == ModItems.forceBelt) {
             return player.getHeldItem();
-        } else {
-            for (int i = 0; i < 9; i++) {
-                if (player.inventory.getStackInSlot(i).getItem() == ModItems.forceBelt) {
-                    return player.inventory.getStackInSlot(i);
-                }
-            }
+        } else if(BaublesApi.getBaubles(player).getStackInSlot(3).getItem() == ModItems.forceBelt) {
+            return BaublesApi.getBaubles(player).getStackInSlot(3);
         }
         return null;
     }
