@@ -1,10 +1,13 @@
 package com.austinv11.dartcraft2.init;
 
+import com.austinv11.dartcraft2.recipes.RecipeDyePack;
 import com.austinv11.dartcraft2.recipes.RecipeTransmutation;
 import com.austinv11.dartcraft2.reference.Reference;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 import forestry.api.recipes.RecipeManagers;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
@@ -45,10 +48,16 @@ public class Recipes {
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ModBlocks.forcePlanks, 4), "logForce"));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.forceStick, 4), "p ", "p ", 'p', "plankForce"));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.forceStick, 8), "w ", "w ", 'w', "logForce"));
+
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.forcePack), "ili", "lcl", "ili", 'i', "ingotForce", 'l', Items.leather, 'c',Item.getItemFromBlock(Blocks.chest)));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.forceBelt), "lwl", "fif", "lwl", 'l', Items.leather, 'w', Item.getItemFromBlock(Blocks.wool), 'f', "ingotForce", 'i', "ingotIron"));
 		
 		RecipeSorter.register(Reference.MOD_ID.toLowerCase()+":transmute", RecipeTransmutation.class, RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
 		GameRegistry.addRecipe(new RecipeTransmutation());
-		
+
+        RecipeSorter.register(Reference.MOD_ID.toLowerCase()+":dyePack", RecipeDyePack.class, RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
+        GameRegistry.addRecipe(new RecipeDyePack());
+
 		if (Loader.isModLoaded("Forestry"))
 			loadForestryRecipes();
 	}
