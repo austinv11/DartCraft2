@@ -34,14 +34,17 @@ public class TransmutationHandler {
 							EntityItem entityItem = (EntityItem) event.world.findNearestEntityWithinAABB(EntityItem.class, boundingBox, event.entityPlayer);
 							if (entityItem != null) {
 								DartCraft2.NETWORK.sendToServer(new TransmutePacket(entityItem, event.entityPlayer));
+								event.setCanceled(true);
 								return;
 							}
 							posX += xIncr;
 							posY += yIncr;
 							posZ += zIncr;
 						}
-						if (event.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK)
+						if (event.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK) {
 							DartCraft2.NETWORK.sendToServer(new TransmutePacket(event.world, event.x, event.y, event.z, event.entityPlayer));
+							event.setCanceled(true);
+						}
 					}
 		}
 	}
