@@ -26,11 +26,13 @@ public class RenderInfuser extends TileEntitySpecialRenderer {
 		Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation(Reference.MOD_ID.toLowerCase()+":textures/blocks/Infuser.png"));
 		model.render(null, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.1F);
 		GL11.glPopMatrix();
-		GL11.glPushMatrix();
-		GL11.glTranslatef(0, -.25F, 0);
-		if (((TileEntityInfuser) tileEntity).dummyTable != null) {
-			renderer.renderTileEntityAt(((TileEntityInfuser) tileEntity).dummyTable, x, y, z, f);
+		if (((TileEntityInfuser)tileEntity).getStackInSlot(0) != null) {
+			GL11.glPushMatrix();
+			GL11.glTranslatef(0, -.25F, 0);
+			if (((TileEntityInfuser) tileEntity).dummyTable != null) {
+				renderer.renderTileEntityAt(((TileEntityInfuser) tileEntity).dummyTable, x, y, z, f);
+			}
+			GL11.glPopMatrix();
 		}
-		GL11.glPopMatrix();
 	}
 }

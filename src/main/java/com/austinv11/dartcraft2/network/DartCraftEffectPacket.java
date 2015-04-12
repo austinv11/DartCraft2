@@ -9,6 +9,7 @@ import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
@@ -17,35 +18,42 @@ import java.util.Random;
 public class DartCraftEffectPacket implements IMessage {
 	
 	public World world;
-	public int x, y, z;
+	public double x, y, z;
 	
 	public DartCraftEffectPacket() {
 		
 	}
 	
-	public DartCraftEffectPacket(World world, int x, int y, int z) {
+	public DartCraftEffectPacket(World world, double x, double y, double z) {
 		this.world = world;
 		this.x = x;
 		this.y = y;
 		this.z = z;
 	}
 	
+	public DartCraftEffectPacket(Entity entity) {
+		world = entity.worldObj;
+		x = entity.posX;
+		y = entity.posY;
+		z = entity.posZ;
+	}
+	
 	@Override
 	public void fromBytes(ByteBuf buf) {
 		NBTTagCompound tag = ByteBufUtils.readTag(buf);
 		world = WorldUtils.getWorldFromDimensionId(tag.getInteger("dim"));
-		x = tag.getInteger("x");
-		y = tag.getInteger("y");
-		z = tag.getInteger("z");
+		x = tag.getDouble("x");
+		y = tag.getDouble("y");
+		z = tag.getDouble("z");
 	}
 	
 	@Override
 	public void toBytes(ByteBuf buf) {
 		NBTTagCompound tag = new NBTTagCompound();
 		tag.setInteger("dim", world.provider.dimensionId);
-		tag.setInteger("x", x);
-		tag.setInteger("y", y);
-		tag.setInteger("z", z);
+		tag.setDouble("x", x);
+		tag.setDouble("y", y);
+		tag.setDouble("z", z);
 		ByteBufUtils.writeTag(buf, tag);
 	}
 	

@@ -30,12 +30,12 @@ public class ItemForceRod extends ItemDC implements ITransmutationItem {
 	
 	@Override
 	public boolean canTransmute(World world, int x, int y, int z, ItemStack itemStack, Block toBlock, int toMeta) {
-		return true;
+		return itemStack.getItemDamage() <= MAX_DURABILITY;
 	}
 	
 	@Override
 	public boolean canTransmute(ItemStack itemStack, Item fromItem, int fromMeta, Item toItem, int toMeta) {
-		return true;
+		return itemStack.getItemDamage() <= MAX_DURABILITY;
 	}
 	
 	@Override

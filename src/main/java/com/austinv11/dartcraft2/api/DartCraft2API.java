@@ -28,6 +28,20 @@ public class DartCraft2API {
 	}
 	
 	/**
+	 * Gets the {@link IUpgradeRegistry} to interface with
+	 * @return The instance of the registry
+	 * @throws FailedAPIRequest
+	 */
+	public static IUpgradeRegistry getUpgradeRegistry() throws FailedAPIRequest {
+		try {
+			return (IUpgradeRegistry) Class.forName("com.austinv11.dartcraft2.DartCraft2").getDeclaredField("UPGRADE_REGISTRY").get(null);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new FailedAPIRequest("Unknown exception retrieving the transmutation recipe handler");
+		}
+	}
+	
+	/**
 	 * Attempts to find an aura controller near the provided location
 	 * @param world The world for the controller
 	 * @param x The x coord to start the search from
