@@ -45,9 +45,9 @@ public class ClientProxy extends CommonProxy implements IconManager.IIconNeeded 
 				renderer.addEffect(new BreakEffect(world, x+.5+(random.nextGaussian()/3), y+.5+(random.nextGaussian()/3), 
 						z+.5+(random.nextGaussian()/3), random.nextGaussian(), random.nextGaussian(), random.nextGaussian()));
 	}
-	
+
 	@Override
-	public void handleKeyBindings() {
+	public void registerClientEvents() {
 		KeyBindings.init();
 		FMLCommonHandler.instance().bus().register(new KeyInputHandler());
 	}

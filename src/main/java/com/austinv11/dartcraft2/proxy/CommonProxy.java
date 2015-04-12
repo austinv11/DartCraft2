@@ -68,7 +68,7 @@ public class CommonProxy {
         DartCraft2.NETWORK.registerMessage(OpenGuiContainerPacket.OpenGuiContainerPacketHandler.class, OpenGuiContainerPacket.class, 2, Side.SERVER);
 	}
 
-    public void handleKeyBindings() {
+    public void registerClientEvents() {
         // NO-OP
     }
 }

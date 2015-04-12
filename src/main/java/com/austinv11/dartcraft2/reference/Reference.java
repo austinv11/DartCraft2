@@ -10,6 +10,7 @@ public class Reference {
 	
 	public static enum GUIs {
 		CLIPBOARD,
-        FORCE_BELT
+        FORCE_BELT,
+        FORCE_PACK
 	}
 }

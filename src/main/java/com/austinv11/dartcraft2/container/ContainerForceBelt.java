@@ -1,8 +1,8 @@
 package com.austinv11.dartcraft2.container;
 
 import com.austinv11.collectiveframework.minecraft.utils.NBTHelper;
-import com.austinv11.dartcraft2.init.ModItems;
 import com.austinv11.dartcraft2.inventory.SlotDCOnly;
+import com.austinv11.dartcraft2.utils.DartCraftUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.InventoryBasic;
@@ -16,25 +16,18 @@ public class ContainerForceBelt extends Container {
     private ItemStack forceBelt;
     private InventoryBasic inv = new InventoryBasic(StatCollector.translateToLocal("gui.forceBelt.name"), false, 35);
     public boolean isClosed;
-
-    public Slot slot1 = new SlotDCOnly(inv, 0, 17, 17);
-    public Slot slot2 = new SlotDCOnly(inv, 1, 35, 17);
-    public Slot slot3 = new SlotDCOnly(inv, 2, 53, 17);
-    public Slot slot4 = new SlotDCOnly(inv, 3, 71, 17);
-    public Slot slot5 = new SlotDCOnly(inv, 4, 89, 17);
-    public Slot slot6 = new SlotDCOnly(inv, 5, 107, 17);
-    public Slot slot7 = new SlotDCOnly(inv, 6, 125, 17);
-    public Slot slot8 = new SlotDCOnly(inv, 7, 143, 17);
+    private Slot[] slots = new Slot[8];
 
     public ContainerForceBelt(EntityPlayer player, int xSize, int ySize) {
         this.player = player;
+
+        for (int i = 0; i < 8; i++) {
+            slots[i] = new SlotDCOnly(inv, i, 17 + (i * 18), 17);
+        }
+
         layout(xSize, ySize);
 
-        if (player.getHeldItem() != null && player.getHeldItem().getItem() == ModItems.forceBelt) {
-            this.forceBelt = player.getHeldItem();
-        } else {
-            this.forceBelt = getBeltInBar(player);
-        }
+        this.forceBelt = DartCraftUtils.getCorrectForceBelt(player);
 
         for (int i = 0; i < 9; i++) {
             if (NBTHelper.hasTag(forceBelt, "slot" + i)) {
@@ -46,14 +39,9 @@ public class ContainerForceBelt extends Container {
     }
 
     protected void layout(int xSize, int ySize) {
-        this.addSlotToContainer(slot1);
-        this.addSlotToContainer(slot2);
-        this.addSlotToContainer(slot3);
-        this.addSlotToContainer(slot4);
-        this.addSlotToContainer(slot5);
-        this.addSlotToContainer(slot6);
-        this.addSlotToContainer(slot7);
-        this.addSlotToContainer(slot8);
+        for (int i = 0; i < 8; i++) {
+            addSlotToContainer(slots[i]);
+        }
 
         int leftCol = (xSize - 162) / 2 + 1;
         for (int playerInvRow = 0; playerInvRow < 3; playerInvRow++) {
@@ -73,29 +61,56 @@ public class ContainerForceBelt extends Container {
 
     @Override
     public void onContainerClosed(EntityPlayer player) {
-        if (player.getHeldItem() != null && player.getHeldItem().getItem() == ModItems.forceBelt) {
-            this.forceBelt = player.getHeldItem();
-        } else {
-            this.forceBelt = getBeltInBar(player);
-        }
-
+        forceBelt = DartCraftUtils.getCorrectForceBelt(player);
         if (forceBelt != null) {
             forceBelt.stackTagCompound = null;
-            for (int i = 0; i < inv.getSizeInventory(); i++)
+            for (int i = 0; i < inv.getSizeInventory(); i++) {
                 if (inv.getStackInSlot(i) != null) {
                     NBTHelper.setCompoundTag(forceBelt, "slot" + i, inv.getStackInSlot(i).writeToNBT(new NBTTagCompound()));
                 }
+            }
         }
         isClosed = true;
         super.onContainerClosed(player);
     }
 
-    private ItemStack getBeltInBar(EntityPlayer player) {
-        for (int i = 0; i < 9; i++) {
-            if (player.inventory.getStackInSlot(i).getItem() == ModItems.forceBelt) {
-                return player.inventory.getStackInSlot(i);
+    @Override
+    public ItemStack transferStackInSlot(EntityPlayer entityPlayer, int i) {
+        // Create a new itemstack. This is the stack that will be manipulated and returned.
+        ItemStack itemstack = null;
+        // Get the slot that was just shift clicked. This is the slot that the itemstack will be transferring from.
+        Slot slot = (Slot) this.inventorySlots.get(i);
+
+        // Check that the slot exists and has an itemstack in it
+        if (slot != null && slot.getHasStack()) {
+            // Get the stack in the slot that was shift-clicked. This stack will act as a base for our return itemstack.
+            ItemStack itemstack1 = slot.getStack();
+            // Copy that stack to our return itemstack.
+            itemstack = itemstack1.copy();
+
+            if (i < 9) // If the slot being transferred from is less than 9, then the item is being transferred from the belt to the player inv.
+            {
+                if (!this.mergeItemStack(itemstack1, 9, this.inv.getSizeInventory(), true)) // If the itemstack can't merge with any stacks in the player's
+                {                                                                           // main inv.
+                    return null;
+                }
+            } else if (!this.mergeItemStack(itemstack1, 0, 9, false)) // If the itemstack can't merge with any stacks in the force belt container, return.
+            {                                                       // Implies that the stack being transferred is from a slot in the player's main inv
+                return null;
+            }
+
+            // After the merging has completed, if the itemstack has a size of 0, replace it with an empty slot.
+            if (itemstack1.stackSize == 0) {
+                slot.putStack(null);
+            } else {
+                // Inform the game that the slot was changed.
+                slot.onSlotChanged();
             }
         }
-        return null;
+
+        // Return the new itemstack. This is the itemstack that will be placed in the slot that is being transferred to.
+        return itemstack;
     }
+
+
 }

@@ -5,6 +5,7 @@ import com.austinv11.dartcraft2.client.KeyBindings;
 import com.austinv11.dartcraft2.init.ModItems;
 import com.austinv11.dartcraft2.network.OpenGuiContainerPacket;
 import com.austinv11.dartcraft2.reference.Reference;
+import com.austinv11.dartcraft2.utils.DartCraftUtils;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.InputEvent;
 import net.minecraft.client.Minecraft;
@@ -18,19 +19,10 @@ public class KeyInputHandler {
     @SubscribeEvent
     public void onKeyInput(InputEvent.KeyInputEvent event) {
         if (KeyBindings.openForceBelt.isPressed()) {
-            ItemStack forceBelt = getBeltInBar(mc.thePlayer);
+            ItemStack forceBelt = DartCraftUtils.getCorrectForceBelt(mc.thePlayer);
             if (forceBelt != null) {
                 DartCraft2.NETWORK.sendToServer(new OpenGuiContainerPacket(Reference.GUIs.FORCE_BELT.ordinal()));
             }
         }
-    }
-
-    private ItemStack getBeltInBar(EntityPlayer player) {
-        for (int i = 0; i < 9; i++) {
-            if (player.inventory.getStackInSlot(i).getItem() == ModItems.forceBelt) {
-                return player.inventory.getStackInSlot(i);
-            }
-        }
-        return null;
     }
 }
