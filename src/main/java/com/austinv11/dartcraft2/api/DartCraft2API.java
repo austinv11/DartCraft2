@@ -1,12 +1,18 @@
 package com.austinv11.dartcraft2.api;
 
+import com.austinv11.collectiveframework.minecraft.utils.NBTHelper;
 import net.minecraft.block.ITileEntityProvider;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * The class used to interface with DartCraft 2
@@ -180,5 +186,95 @@ public class DartCraft2API {
 							}
 				}
 		return list;
+	}
+	
+	/**
+	 * Reads the list of active upgrades 
+	 * @param stack The stack to scan
+	 * @return The upgrades
+	 * @throws FailedAPIRequest Thrown if the item cannot receive upgrades
+	 */
+	public static List<IForceUpgrade> getUpgradesFromStack(ItemStack stack) throws FailedAPIRequest {
+		if (!(stack.getItem() instanceof IForceArmor) || !(stack.getItem() instanceof IForceTool))
+			throw new FailedAPIRequest("Stack "+stack+" is ineligible for upgrades!");
+		List<IForceUpgrade> upgrades = new ArrayList<IForceUpgrade>();
+		NBTTagCompound info = NBTHelper.getCompoundTag(stack, "DC:UpgradeInfo");
+		NBTTagList ups = info.getTagList("Upgrades", Constants.NBT.TAG_COMPOUND);
+		for (int i = 0; i < ups.tagCount(); i++) {
+			NBTTagCompound tag = ups.getCompoundTagAt(i);
+			IForceUpgrade upgrade = getUpgradeFromName(tag.getString("Name"));
+			if (upgrade != null)
+				upgrades.add(upgrade);
+		}
+		return upgrades;
+	}
+	
+	/**
+	 * Adds an upgrade to a stack
+	 * @param stack The stack
+	 * @param upgrade The upgrade to add
+	 * @throws FailedAPIRequest Thrown if the item cannot receive upgrades
+	 */
+	public static void addUpgradeToStack(ItemStack stack, IForceUpgrade upgrade) throws FailedAPIRequest {
+		if (!(stack.getItem() instanceof IForceArmor) || !(stack.getItem() instanceof IForceTool))
+			throw new FailedAPIRequest("Stack "+stack+" is ineligible for upgrades!");
+		NBTTagCompound info = NBTHelper.getCompoundTag(stack, "DC:UpgradeInfo");
+		NBTTagList upgrades = info.hasKey("Upgrades") ? info.getTagList("Upgrades", Constants.NBT.TAG_COMPOUND) : 
+				new NBTTagList();
+		boolean didAdd = false;
+		for (int i = 0; i < upgrades.tagCount(); i++) {
+			NBTTagCompound tag = upgrades.getCompoundTagAt(i);
+			if (tag.getString("Name").equals(upgrade.getUnlocalizedName())) {
+				didAdd = true;
+				tag.setInteger("Level", tag.getInteger("Level")+1);
+				upgrades.func_150304_a(i, tag); //Set tag
+				break;
+			}
+		}
+		if (!didAdd) {
+			NBTTagCompound tag = new NBTTagCompound();
+			tag.setString("Name", upgrade.getUnlocalizedName());
+			tag.setInteger("Level", 1);
+			upgrades.appendTag(tag);
+		}
+		info.setTag("Upgrades", upgrades);
+		NBTHelper.setCompoundTag(stack, "DC:UpgradeInfo", info);
+	}
+	
+	/**
+	 * Removes an upgrade to a stack
+	 * @param stack The stack
+	 * @param upgrade The upgrade to remove
+	 * @throws FailedAPIRequest Thrown if the item cannot receive upgrades
+	 */
+	public static void removeUpgradeFromStack(ItemStack stack, IForceUpgrade upgrade) throws FailedAPIRequest {
+		if (!(stack.getItem() instanceof IForceArmor) || !(stack.getItem() instanceof IForceTool))
+			throw new FailedAPIRequest("Stack "+stack+" is ineligible for upgrades!");
+		NBTTagCompound info = NBTHelper.getCompoundTag(stack, "DC:UpgradeInfo");
+		NBTTagList upgrades = info.hasKey("Upgrades") ? info.getTagList("Upgrades", Constants.NBT.TAG_COMPOUND) :
+				new NBTTagList();
+		for (int i = 0; i < upgrades.tagCount(); i++) {
+			NBTTagCompound tag = upgrades.getCompoundTagAt(i);
+			if (tag.getString("Name").equals(upgrade.getUnlocalizedName())) {
+				int level = tag.getInteger("Level");
+				if (level > 1) {
+					tag.setInteger("Level", level-1);
+					upgrades.func_150304_a(i, tag); //Set tag
+				} else {
+					upgrades.removeTag(i);
+				}
+				break;
+			}
+		}
+		info.setTag("Upgrades", upgrades);
+		NBTHelper.setCompoundTag(stack, "DC:UpgradeInfo", info);
+	}
+	
+	private static IForceUpgrade getUpgradeFromName(String name) throws FailedAPIRequest {
+		Set<IForceUpgrade> upgrades = getUpgradeRegistry().getUpgrades();
+		for (IForceUpgrade upgrade : upgrades)
+			if (upgrade.getUnlocalizedName().equals(name))
+				return upgrade;
+		return null;
 	}
 }

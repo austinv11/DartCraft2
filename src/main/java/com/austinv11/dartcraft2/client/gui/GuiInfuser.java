@@ -6,6 +6,7 @@ import com.austinv11.dartcraft2.tileentities.TileEntityInfuser;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.texture.TextureManager;
@@ -97,9 +98,11 @@ public class GuiInfuser extends GuiContainer {
 		int scaleFactor = new ScaledResolution(Minecraft.getMinecraft(), x, y).getScaleFactor();
 		if (mouseX > x+(43*scaleFactor) && mouseX < x+(52*scaleFactor)
 				&& mouseY > y+(13*scaleFactor) && mouseY < y+(26*scaleFactor)) {
+			Minecraft.getMinecraft().getSoundHandler().playSound(PositionedSoundRecord.func_147674_a(new ResourceLocation("gui.button.press"), 1.0F));
 			//TODO: Help (sub-)gui
 		} else if (mouseX > x+(43*scaleFactor) && mouseX < x+(52*scaleFactor)
 				&& mouseY > y+(94*scaleFactor) && mouseY < y+(107*scaleFactor)) {
+			Minecraft.getMinecraft().getSoundHandler().playSound(PositionedSoundRecord.func_147674_a(new ResourceLocation("gui.button.press"), 1.0F));
 			//TODO:Start infusion
 		} else {
 			super.mouseClicked(mouseX, mouseY, button);
