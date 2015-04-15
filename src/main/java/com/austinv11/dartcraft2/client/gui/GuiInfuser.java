@@ -59,6 +59,8 @@ public class GuiInfuser extends GuiContainer {
 		this.mc.getTextureManager().bindTexture(backgroundimage);
 		drawTexturedModalRect(x+12, y+53, sizeX+14, sizeY+68, 16, 96);
 		
+		
+		
 		int scaleFactor = new ScaledResolution(Minecraft.getMinecraft(), x, y).getScaleFactor();
 		if (mouseX > x+(43*scaleFactor) && mouseX < x+(52*scaleFactor)
 				&& mouseY > y+(13*scaleFactor) && mouseY < y+(26*scaleFactor)) {

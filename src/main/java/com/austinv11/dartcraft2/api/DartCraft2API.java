@@ -5,11 +5,17 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.StatCollector;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
@@ -18,6 +24,10 @@ import java.util.Set;
  */
 public class DartCraft2API {
 	
+	private static final HashMap<String, Field> cachedFields = new HashMap<String, Field>();
+	private static final HashMap<String, Method> cachedMethods = new HashMap<String, Method>();
+	private static final HashMap<String, Class> cachedClasses = new HashMap<String, Class>();
+	
 	/**
 	 * Gets the {@link ITransmutationRecipeHandler} to interface with
 	 * @return The instance of the handler
@@ -25,7 +35,7 @@ public class DartCraft2API {
 	 */
 	public static ITransmutationRecipeHandler getTransmutationRecipeHandler() throws FailedAPIRequest {
 		try {
-			return (ITransmutationRecipeHandler) Class.forName("com.austinv11.dartcraft2.DartCraft2").getDeclaredField("TRANSMUTATION_HANDLER").get(null);
+			return (ITransmutationRecipeHandler) getCachedField("com.austinv11.dartcraft2.DartCraft2#TRANSMUTATION_HANDLER").get(null);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new FailedAPIRequest("Unknown exception retrieving the transmutation recipe handler");
@@ -39,7 +49,7 @@ public class DartCraft2API {
 	 */
 	public static IUpgradeRegistry getUpgradeRegistry() throws FailedAPIRequest {
 		try {
-			return (IUpgradeRegistry) Class.forName("com.austinv11.dartcraft2.DartCraft2").getDeclaredField("UPGRADE_REGISTRY").get(null);
+			return (IUpgradeRegistry) getCachedField("com.austinv11.dartcraft2.DartCraft2#UPGRADE_REGISTRY").get(null);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new FailedAPIRequest("Unknown exception retrieving the transmutation recipe handler");
@@ -82,7 +92,7 @@ public class DartCraft2API {
 		if (closestController != null)
 			return (IAuraController) closestController;
 		try {
-			return (IAuraController) Class.forName("com.austinv11.dartcraft2.api.implementations.PassiveAuraController").getConstructor(World.class, Integer.class, Integer.class, Integer.class).newInstance(world, x, y, z);
+			return (IAuraController) getCachedClass("com.austinv11.dartcraft2.api.implementations.PassiveAuraController").getConstructor(World.class, Integer.class, Integer.class, Integer.class).newInstance(world, x, y, z);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -275,11 +285,90 @@ public class DartCraft2API {
 		stack.stackTagCompound.setTag("DC:UpgradeInfo", info);
 	}
 	
+	private static void refreshUpgradeDisplay(ItemStack stack) throws NoSuchMethodException, ClassNotFoundException, InvocationTargetException, IllegalAccessException {
+		if (stack.stackTagCompound == null)
+			stack.stackTagCompound = new NBTTagCompound();
+		NBTTagCompound info = stack.stackTagCompound.getCompoundTag("DC:UpgradeInfo");
+		NBTTagList upgrades = info.hasKey("Upgrades") ? info.getTagList("Upgrades", Constants.NBT.TAG_COMPOUND) :
+				new NBTTagList();
+		List<String> lore = new ArrayList<String>();
+		for (int i = 0; i < upgrades.tagCount(); i++) {
+			NBTTagCompound tag = upgrades.getCompoundTagAt(i);
+			lore.add(EnumChatFormatting.GRAY+StatCollector.translateToLocal(tag.getString("Name"))+" "+getRomanNumerals(tag.getInteger("Level")));
+		}
+		Method m = getCachedMethod("com.austinv11.collectiveframework.minecraft.utils.NBTHelper#setInfo", ItemStack.class, List.class);
+		m.invoke(null, stack, lore);
+	}
+	
 	private static IForceUpgrade getUpgradeFromName(String name) throws FailedAPIRequest {
 		Set<IForceUpgrade> upgrades = getUpgradeRegistry().getUpgrades();
 		for (IForceUpgrade upgrade : upgrades)
 			if (upgrade.getUnlocalizedName().equals(name))
 				return upgrade;
 		return null;
+	}
+	
+	private static String getRomanNumerals(int num) {
+		String numerals = "";
+		if (num < 4)
+			for (int i = 0; i < num; i++)
+				numerals = numerals+"I";
+		else if (num == 4)
+			numerals = "IV";
+		else if (num == 5)
+			numerals = "V";
+		else if (num > 5 && num < 9) {
+			numerals = "V";
+			for (int i = 0; i < num-5; i++)
+				numerals = numerals+"I";
+		} else if (num == 9)
+			numerals = "IX";
+		else if (num == 10)
+			numerals = "X";
+		else if (num > 10)
+			numerals = "X"+getRomanNumerals(num-10);
+		return numerals;
+	}
+	
+	//Reflection cache helper methods, This should help improve performance
+	
+	private static Class getCachedClass(String clazz) throws ClassNotFoundException {
+		if (!cachedClasses.containsKey(clazz))
+			cachedClasses.put(clazz, Class.forName(clazz));
+		return cachedClasses.get(clazz);
+	}
+	
+	//Reads class name and method name, separated by '#'
+	private static Method getCachedMethod(String method, Class<?>... paramTypes) throws ClassNotFoundException, NoSuchMethodException {
+		if (!cachedMethods.containsKey(method)) {
+			String[] split = method.split("#");
+			Class clazz = getCachedClass(split[0]);
+			Method m;
+			try {
+				m = clazz.getMethod(split[1], paramTypes);
+			} catch (NoSuchMethodException e) {
+				m = clazz.getDeclaredMethod(split[1], paramTypes);
+			}
+			m.setAccessible(true);
+			cachedMethods.put(method, m);
+		}
+		return cachedMethods.get(method);
+	}
+	
+	//Reads class name and field name, separated by '#'
+	private static Field getCachedField(String field) throws ClassNotFoundException, NoSuchFieldException {
+		if (!cachedFields.containsKey(field)) {
+			String[] split = field.split("#");
+			Class clazz = getCachedClass(split[0]);
+			Field f;
+			try {
+				f = clazz.getField(split[1]);
+			} catch (NoSuchFieldException e) {
+				f = clazz.getDeclaredField(split[1]);
+			}
+			f.setAccessible(true);
+			cachedFields.put(field, f);
+		}
+		return cachedFields.get(field);
 	}
 }
