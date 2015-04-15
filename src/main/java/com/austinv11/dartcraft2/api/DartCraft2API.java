@@ -1,6 +1,5 @@
 package com.austinv11.dartcraft2.api;
 
-import com.austinv11.collectiveframework.minecraft.utils.NBTHelper;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -198,7 +197,9 @@ public class DartCraft2API {
 		if (!(stack.getItem() instanceof IForceArmor) || !(stack.getItem() instanceof IForceTool))
 			throw new FailedAPIRequest("Stack "+stack+" is ineligible for upgrades!");
 		List<IForceUpgrade> upgrades = new ArrayList<IForceUpgrade>();
-		NBTTagCompound info = NBTHelper.getCompoundTag(stack, "DC:UpgradeInfo");
+		if (stack.stackTagCompound == null)
+			return upgrades;
+		NBTTagCompound info =  stack.stackTagCompound.getCompoundTag("DC:UpgradeInfo");
 		NBTTagList ups = info.getTagList("Upgrades", Constants.NBT.TAG_COMPOUND);
 		for (int i = 0; i < ups.tagCount(); i++) {
 			NBTTagCompound tag = ups.getCompoundTagAt(i);
@@ -218,7 +219,9 @@ public class DartCraft2API {
 	public static void addUpgradeToStack(ItemStack stack, IForceUpgrade upgrade) throws FailedAPIRequest {
 		if (!(stack.getItem() instanceof IForceArmor) || !(stack.getItem() instanceof IForceTool))
 			throw new FailedAPIRequest("Stack "+stack+" is ineligible for upgrades!");
-		NBTTagCompound info = NBTHelper.getCompoundTag(stack, "DC:UpgradeInfo");
+		if (stack.stackTagCompound == null)
+			stack.stackTagCompound = new NBTTagCompound();
+		NBTTagCompound info = stack.stackTagCompound.getCompoundTag("DC:UpgradeInfo");
 		NBTTagList upgrades = info.hasKey("Upgrades") ? info.getTagList("Upgrades", Constants.NBT.TAG_COMPOUND) : 
 				new NBTTagList();
 		boolean didAdd = false;
@@ -238,7 +241,7 @@ public class DartCraft2API {
 			upgrades.appendTag(tag);
 		}
 		info.setTag("Upgrades", upgrades);
-		NBTHelper.setCompoundTag(stack, "DC:UpgradeInfo", info);
+		stack.stackTagCompound.setTag("DC:UpgradeInfo", info);
 	}
 	
 	/**
@@ -250,7 +253,9 @@ public class DartCraft2API {
 	public static void removeUpgradeFromStack(ItemStack stack, IForceUpgrade upgrade) throws FailedAPIRequest {
 		if (!(stack.getItem() instanceof IForceArmor) || !(stack.getItem() instanceof IForceTool))
 			throw new FailedAPIRequest("Stack "+stack+" is ineligible for upgrades!");
-		NBTTagCompound info = NBTHelper.getCompoundTag(stack, "DC:UpgradeInfo");
+		if (stack.stackTagCompound == null)
+			stack.stackTagCompound = new NBTTagCompound();
+		NBTTagCompound info = stack.stackTagCompound.getCompoundTag("DC:UpgradeInfo");
 		NBTTagList upgrades = info.hasKey("Upgrades") ? info.getTagList("Upgrades", Constants.NBT.TAG_COMPOUND) :
 				new NBTTagList();
 		for (int i = 0; i < upgrades.tagCount(); i++) {
@@ -267,7 +272,7 @@ public class DartCraft2API {
 			}
 		}
 		info.setTag("Upgrades", upgrades);
-		NBTHelper.setCompoundTag(stack, "DC:UpgradeInfo", info);
+		stack.stackTagCompound.setTag("DC:UpgradeInfo", info);
 	}
 	
 	private static IForceUpgrade getUpgradeFromName(String name) throws FailedAPIRequest {
